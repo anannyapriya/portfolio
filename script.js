@@ -44,7 +44,7 @@ const PixelTransition = (() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     show();
     let idx = 0;
-    const perFrame = Math.max(1, Math.ceil(pixels.length / 50));
+    const perFrame = Math.max(1, Math.ceil(pixels.length / 100));
     const DARK_COLORS = ['#050510','#060612','#070714','#05050F'];
 
     function step() {
@@ -69,7 +69,7 @@ const PixelTransition = (() => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     show();
     let idx = 0;
-    const perFrame = Math.max(1, Math.ceil(pixels.length / 50));
+    const perFrame = Math.max(1, Math.ceil(pixels.length / 100));
 
     function step() {
       for (let i = 0; i < perFrame && idx < pixels.length; i++, idx++) {
