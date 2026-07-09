@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anannya P. Neog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- PIXEL TRANSITION CANVAS -->
+<canvas id="transition-canvas"></canvas>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1 — LIGHT
+══════════════════════════════════════════════ -->
+<div id="page-light" class="page">
+
+  <nav class="l-nav" id="l-nav">
+    <a class="l-nav__logo" href="#about">APN</a>
+    <ul class="l-nav__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#hobbies">Hobbies</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="./assets/resume.pdf" target="_blank" class="l-nav__resume">Resume ↗</a></li>
+    </ul>
+    <button class="l-nav__dark-btn" id="enterDark">
+      <span class="dark-btn-icon">✦</span> Enter The Void
+    </button>
+    <button class="l-hamburger" id="lHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ABOUT / HERO -->
+  <section id="about" class="l-section l-hero">
+    <div class="l-container l-hero__inner">
+      <div class="l-hero__text reveal">
+        <p class="l-hero__greeting">Hello, I'm</p>
+        <h1 class="l-hero__name">Anannya<br/>P. Neog</h1>
+        <p class="l-hero__role">Full Stack Developer · Creative Technologist</p>
+        <p class="l-hero__bio">
+          I craft digital experiences that sit at the intersection of clean engineering
+          and thoughtful design. Passionate about building things that actually matter.
+        </p>
+        <div class="l-hero__cta">
+          <a href="#projects" class="btn-primary">View My Work</a>
+          <a href="#contact" class="btn-secondary">Let's Talk</a>
+        </div>
+      </div>
+      <div class="l-hero__visual reveal">
+        <div class="avatar-ring">
+          <div class="avatar-inner">APN</div>
+          <div class="avatar-ring__orbit orbit-1"></div>
+          <div class="avatar-ring__orbit orbit-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="l-section l-section--alt">
+    <div class="l-container">
+      <h2 class="l-section__title reveal">Education</h2>
+      <div class="l-timeline">
+        <div class="l-timeline__item reveal">
+          <div class="l-timeline__dot"></div>
+          <div class="l-timeline__body">
+            <span class="l-timeline__year">2021 – Present</span>
+            <h3>B.Tech · Computer Science &amp; Engineering</h3>
+            <p class="l-timeline__place">[Your University Name]</p>
+            <p>CGPA: [X.X] &nbsp;|&nbsp; Data Structures, Algorithms, Web Dev, ML</p>
+          </div>
+        </div>
+        <div class="l-timeline__item reveal">
+          <div class="l-timeline__dot"></div>
+          <div class="l-timeline__body">
+            <span class="l-timeline__year">2019 – 2021</span>
+            <h3>Higher Secondary · Science (12th)</h3>
+            <p class="l-timeline__place">[Your School Name]</p>
+            <p>Physics · Chemistry · Mathematics &nbsp;|&nbsp; [X]%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK EXPERIENCE -->
+  <section id="experience" class="l-section">
+    <div class="l-container">
+      <h2 class="l-section__title reveal">Work Experience</h2>
+      <div class="l-exp-grid">
+        <div class="l-exp-card reveal">
+          <div class="l-exp-card__header">
+            <div>
+              <h3>[Company Name]</h3>
+              <p class="l-exp-role">Software Developer Intern</p>
+            </div>
+            <span class="l-exp-date">Jun 2024 – Aug 2024</span>
+          </div>
+          <ul class="l-exp-bullets">
+            <li>Built and shipped [feature] that improved [metric] by [X]%</li>
+            <li>Worked with [tech stack] to solve [problem]</li>
+            <li>Collaborated with a cross-functional team of [X] engineers</li>
+          </ul>
+          <div class="l-tags">
+            <span>React</span><span>Node.js</span><span>PostgreSQL</span>
+          </div>
+        </div>
+        <div class="l-exp-card reveal">
+          <div class="l-exp-card__header">
+            <div>
+              <h3>[Another Company]</h3>
+              <p class="l-exp-role">Frontend Developer</p>
+            </div>
+            <span class="l-exp-date">Jan 2024 – Apr 2024</span>
+          </div>
+          <ul class="l-exp-bullets">
+            <li>Developed [component/feature] using [technology]</li>
+            <li>Reduced load time by [X]% through performance optimisation</li>
+          </ul>
+          <div class="l-tags">
+            <span>Vue.js</span><span>TypeScript</span><span>Tailwind</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="l-section l-section--alt">
+    <div class="l-container">
+      <h2 class="l-section__title reveal">Projects</h2>
+      <div class="l-projects-grid">
+        <div class="l-project-card reveal">
+          <div class="l-project-card__top">
+            <span class="l-project-icon">◈</span>
+            <div class="l-project-links">
+              <a href="#" target="_blank">GitHub ↗</a>
+              <a href="#" target="_blank">Live ↗</a>
+            </div>
+          </div>
+          <h3>[Project Name]</h3>
+          <p>A brief description of what this project does, the problem it solves, and the impact it had.</p>
+          <div class="l-tags"><span>React</span><span>Firebase</span><span>TailwindCSS</span></div>
+        </div>
+        <div class="l-project-card reveal">
+          <div class="l-project-card__top">
+            <span class="l-project-icon">◈</span>
+            <div class="l-project-links">
+              <a href="#" target="_blank">GitHub ↗</a>
+              <a href="#" target="_blank">Live ↗</a>
+            </div>
+          </div>
+          <h3>[Project Two]</h3>
+          <p>Description of your second project and what makes it interesting or technically challenging.</p>
+          <div class="l-tags"><span>Python</span><span>FastAPI</span><span>ML</span></div>
+        </div>
+        <div class="l-project-card reveal">
+          <div class="l-project-card__top">
+            <span class="l-project-icon">◈</span>
+            <div class="l-project-links">
+              <a href="#" target="_blank">GitHub ↗</a>
+            </div>
+          </div>
+          <h3>[Project Three]</h3>
+          <p>Description of your third project. What technologies did you use and what did you build?</p>
+          <div class="l-tags"><span>Node.js</span><span>MongoDB</span><span>Socket.io</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBBIES -->
+  <section id="hobbies" class="l-section">
+    <div class="l-container">
+      <h2 class="l-section__title reveal">Hobbies</h2>
+      <div class="l-hobbies-grid">
+        <div class="l-hobby reveal">
+          <div class="l-hobby__icon">🎨</div>
+          <h4>Digital Art</h4>
+          <p>Creating visual art and exploring design aesthetics in digital mediums</p>
+        </div>
+        <div class="l-hobby reveal">
+          <div class="l-hobby__icon">📚</div>
+          <h4>Reading</h4>
+          <p>Science fiction, technical papers, and philosophy of mind</p>
+        </div>
+        <div class="l-hobby reveal">
+          <div class="l-hobby__icon">🎵</div>
+          <h4>Music</h4>
+          <p>Playing guitar and exploring indie and electronic artists</p>
+        </div>
+        <div class="l-hobby reveal">
+          <div class="l-hobby__icon">🧩</div>
+          <h4>Problem Solving</h4>
+          <p>Competitive programming, logic puzzles, and math challenges</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="l-section l-section--alt">
+    <div class="l-container l-contact">
+      <h2 class="l-section__title reveal">Get In Touch</h2>
+      <p class="l-contact__sub reveal">
+        Currently open to new opportunities. Whether it's a project, collaboration,
+        or just a hello — my inbox is always open.
+      </p>
+      <a href="mailto:anannya903@gmail.com" class="btn-primary reveal">Send an Email ↗</a>
+      <div class="l-socials reveal">
+        <a href="https://github.com/anannyapriya" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/[your-linkedin]" target="_blank">LinkedIn</a>
+        <a href="https://twitter.com/[your-twitter]" target="_blank">Twitter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume" class="l-section">
+    <div class="l-container l-contact">
+      <h2 class="l-section__title reveal">Resume</h2>
+      <p class="reveal">Download or view my resume to see my full skills and experience.</p>
+      <a href="./assets/resume.pdf" target="_blank" class="btn-primary reveal">Download Resume ↗</a>
+    </div>
+  </section>
+
+  <footer class="l-footer">
+    <p>Designed &amp; Built by Anannya P. Neog &nbsp;·&nbsp; 2025</p>
+  </footer>
+
+</div><!-- /page-light -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2 — DARK / THE VOID
+══════════════════════════════════════════════ -->
+<div id="page-dark" class="page hidden">
+
+  <canvas id="particles-canvas"></canvas>
+  <div class="d-bg-gradient"></div>
+
+  <nav class="d-nav" id="d-nav">
+    <a class="d-nav__logo" href="#d-about">APN</a>
+    <div class="d-nav__links" id="d-nav-links">
+      <a href="#d-about"      class="d-nav__btn" data-label="About">About</a>
+      <a href="#d-education"  class="d-nav__btn" data-label="Education">Education</a>
+      <a href="#d-experience" class="d-nav__btn" data-label="Experience">Experience</a>
+      <a href="#d-projects"   class="d-nav__btn" data-label="Projects">Projects</a>
+      <a href="#d-hobbies"    class="d-nav__btn" data-label="Hobbies">Hobbies</a>
+      <a href="#d-contact"    class="d-nav__btn" data-label="Contact">Contact</a>
+      <a href="./assets/resume.pdf" target="_blank" class="d-nav__btn" data-label="Resume">Resume</a>
+      <button class="d-nav__exit-btn" id="exitDark">← Back to Light</button>
+    </div>
+    <button class="d-hamburger" id="dHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- DARK HERO / ABOUT -->
+  <section id="d-about" class="d-hero">
+    <div class="d-hero__content">
+      <p class="d-hero__greeting">Hello, Universe.</p>
+      <h1 class="d-hero__name glitch" data-text="Anannya P. Neog">Anannya P. Neog</h1>
+      <p class="d-hero__role"><span class="typewriter" id="typewriter"></span><span class="cursor">|</span></p>
+      <p class="d-hero__bio">
+        Code is my canvas. I engineer at the edge of logic and imagination —
+        building systems that breathe, interfaces that feel alive,
+        and experiences that resonate long after the screen goes dark.
+      </p>
+      <div class="d-hero__cta">
+        <a href="#d-projects" class="d-btn-primary">Explore My Universe</a>
+      </div>
+    </div>
+    <div class="d-scroll-hint">
+      <div class="d-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- DARK EDUCATION -->
+  <section id="d-education" class="d-section">
+    <div class="l-container">
+      <h2 class="d-section__title d-reveal">Education</h2>
+      <div class="d-cards-grid">
+        <div class="d-card d-reveal" data-tilt>
+          <div class="d-card__glow"></div>
+          <div class="d-card__inner">
+            <span class="d-card__year">2021 – Present</span>
+            <h3>B.Tech · Computer Science &amp; Engineering</h3>
+            <p>[Your University Name]</p>
+            <div class="d-bar">
+              <span>CGPA</span>
+              <div class="d-bar__track"><div class="d-bar__fill" style="--w:85%"></div></div>
+              <span>[X.X]</span>
+            </div>
+          </div>
+        </div>
+        <div class="d-card d-reveal" data-tilt>
+          <div class="d-card__glow"></div>
+          <div class="d-card__inner">
+            <span class="d-card__year">2019 – 2021</span>
+            <h3>Higher Secondary · Science</h3>
+            <p>[Your School Name]</p>
+            <p class="d-muted">Physics · Chemistry · Mathematics</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK EXPERIENCE -->
+  <section id="d-experience" class="d-section">
+    <div class="l-container">
+      <h2 class="d-section__title d-reveal">Experience</h2>
+      <div class="d-timeline">
+        <div class="d-timeline__item d-reveal">
+          <div class="d-timeline__node">
+            <div class="d-timeline__pulse"></div>
+          </div>
+          <div class="d-timeline__body">
+            <h3>[Company Name]</h3>
+            <p class="d-role-tag">Software Developer Intern &nbsp;·&nbsp; Jun 2024 – Aug 2024</p>
+            <p>Built and shipped [feature] that improved [metric] by [X]%. Worked across the full stack with a cross-functional team.</p>
+            <div class="d-tags"><span>React</span><span>Node.js</span><span>PostgreSQL</span></div>
+          </div>
+        </div>
+        <div class="d-timeline__item d-reveal">
+          <div class="d-timeline__node">
+            <div class="d-timeline__pulse"></div>
+          </div>
+          <div class="d-timeline__body">
+            <h3>[Another Company]</h3>
+            <p class="d-role-tag">Frontend Developer &nbsp;·&nbsp; Jan 2024 – Apr 2024</p>
+            <p>Developed core UI components and reduced page load time by [X]% through targeted optimisation.</p>
+            <div class="d-tags"><span>Vue.js</span><span>TypeScript</span><span>Tailwind</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK PROJECTS -->
+  <section id="d-projects" class="d-section">
+    <div class="l-container">
+      <h2 class="d-section__title d-reveal">Projects</h2>
+      <div class="d-projects-grid">
+        <div class="d-project-card d-reveal" data-tilt>
+          <div class="d-project-card__glow"></div>
+          <div class="d-project-card__inner">
+            <div class="d-project-card__top">
+              <span class="d-proj-num">01</span>
+              <div class="d-proj-links"><a href="#" target="_blank">↗</a></div>
+            </div>
+            <h3>[Project Name]</h3>
+            <p>Brief description of what this project does and the impact it had on its users.</p>
+            <div class="d-tags"><span>React</span><span>Firebase</span></div>
+          </div>
+        </div>
+        <div class="d-project-card d-reveal" data-tilt>
+          <div class="d-project-card__glow"></div>
+          <div class="d-project-card__inner">
+            <div class="d-project-card__top">
+              <span class="d-proj-num">02</span>
+              <div class="d-proj-links"><a href="#" target="_blank">↗</a></div>
+            </div>
+            <h3>[Project Two]</h3>
+            <p>Description of your second project and what makes it interesting or challenging.</p>
+            <div class="d-tags"><span>Python</span><span>ML</span></div>
+          </div>
+        </div>
+        <div class="d-project-card d-reveal" data-tilt>
+          <div class="d-project-card__glow"></div>
+          <div class="d-project-card__inner">
+            <div class="d-project-card__top">
+              <span class="d-proj-num">03</span>
+              <div class="d-proj-links"><a href="#" target="_blank">↗</a></div>
+            </div>
+            <h3>[Project Three]</h3>
+            <p>Description of your third project and the technologies you used to build it.</p>
+            <div class="d-tags"><span>Node.js</span><span>MongoDB</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK HOBBIES -->
+  <section id="d-hobbies" class="d-section">
+    <div class="l-container">
+      <h2 class="d-section__title d-reveal">Hobbies</h2>
+      <div class="d-hobbies-grid">
+        <div class="d-hobby-card d-reveal" data-tilt>
+          <div class="d-hobby-card__glow"></div>
+          <div class="d-hobby-card__inner">
+            <span class="d-hobby-icon">🎨</span>
+            <h4>Digital Art</h4>
+            <p>Creating visual art and exploring aesthetics in digital mediums</p>
+          </div>
+        </div>
+        <div class="d-hobby-card d-reveal" data-tilt>
+          <div class="d-hobby-card__glow"></div>
+          <div class="d-hobby-card__inner">
+            <span class="d-hobby-icon">📚</span>
+            <h4>Reading</h4>
+            <p>Science fiction, technical papers, and philosophy of mind</p>
+          </div>
+        </div>
+        <div class="d-hobby-card d-reveal" data-tilt>
+          <div class="d-hobby-card__glow"></div>
+          <div class="d-hobby-card__inner">
+            <span class="d-hobby-icon">🎵</span>
+            <h4>Music</h4>
+            <p>Guitar, and discovering indie &amp; electronic artists</p>
+          </div>
+        </div>
+        <div class="d-hobby-card d-reveal" data-tilt>
+          <div class="d-hobby-card__glow"></div>
+          <div class="d-hobby-card__inner">
+            <span class="d-hobby-icon">🧩</span>
+            <h4>Problem Solving</h4>
+            <p>Competitive programming and mathematical puzzles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK CONTACT -->
+  <section id="d-contact" class="d-section">
+    <div class="l-container l-contact">
+      <h2 class="d-section__title d-reveal">Contact</h2>
+      <p class="d-contact__sub d-reveal">Transmit a signal. I'm always listening.</p>
+      <a href="mailto:anannya903@gmail.com" class="d-btn-primary d-reveal">Send Transmission ↗</a>
+      <div class="d-socials d-reveal">
+        <a href="https://github.com/anannyapriya" target="_blank" class="d-social">GitHub</a>
+        <a href="https://linkedin.com/in/[your-linkedin]" target="_blank" class="d-social">LinkedIn</a>
+        <a href="https://twitter.com/[your-twitter]" target="_blank" class="d-social">Twitter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK RESUME -->
+  <section id="d-resume" class="d-section">
+    <div class="l-container l-contact">
+      <h2 class="d-section__title d-reveal">Resume</h2>
+      <p class="d-reveal" style="color:var(--d-muted); margin-bottom:2rem;">
+        Download my CV and explore the full picture.
+      </p>
+      <a href="./assets/resume.pdf" target="_blank" class="d-btn-primary d-reveal">Download CV ↗</a>
+    </div>
+  </section>
+
+  <footer class="d-footer">
+    <p>Anannya P. Neog &nbsp;·&nbsp; Built in the void &nbsp;·&nbsp; 2025</p>
+  </footer>
+
+</div><!-- /page-dark -->
+
+<script src="script.js"></script>
+</body>
+</html>
