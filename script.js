@@ -44,7 +44,7 @@ const PixelTransition = (() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     show();
     let idx = 0;
-    const perFrame = Math.max(1, Math.ceil(pixels.length / 120));
+    const perFrame = Math.max(1, Math.ceil(pixels.length / 100));
     const DARK_COLORS = ['#050510','#060612','#070714','#05050F'];
 
     function step() {
@@ -65,15 +65,18 @@ const PixelTransition = (() => {
   function toLight(onDone) {
     if (raf) cancelAnimationFrame(raf);
     buildGrid();
-    ctx.fillStyle = '#050510';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Start transparent so the dark page shows, then build up white pixels
+    // over it so the reveal to the white page is seamless (no hard swap).
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     show();
     let idx = 0;
-    const perFrame = Math.max(1, Math.ceil(pixels.length / 120));
+    const perFrame = Math.max(1, Math.ceil(pixels.length / 100));
+    const LIGHT_COLORS = ['#FFFFFF','#FAFAFC','#F5F5FA','#FDFDFF'];
 
     function step() {
       for (let i = 0; i < perFrame && idx < pixels.length; i++, idx++) {
-        ctx.clearRect(pixels[idx].x, pixels[idx].y, SIZE, SIZE);
+        ctx.fillStyle = LIGHT_COLORS[idx % LIGHT_COLORS.length];
+        ctx.fillRect(pixels[idx].x, pixels[idx].y, SIZE, SIZE);
       }
       if (idx < pixels.length) {
         raf = requestAnimationFrame(step);
