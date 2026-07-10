@@ -128,16 +128,20 @@ const pCanvas = document.getElementById('particles-canvas');
 const pCtx    = pCanvas.getContext('2d');
 let   pRaf    = null;
 let   particles = [];
+let   constellationPhase = 0; // drives the traveling glow along connection lines
+let   jumps = [];             // "electron jumps" arcing between distant constellations
 
 const COLORS = ['#3B82F6','#8B5CF6','#EC4899','#06B6D4'];
 
 class Particle {
   constructor() { this.reset(true); }
-  reset(init = false) {
+  reset() {
+    // Spawn anywhere on the page and drift in any direction so the
+    // particle field fills the whole screen, not just the bottom.
     this.x  = Math.random() * pCanvas.width;
-    this.y  = init ? Math.random() * pCanvas.height : pCanvas.height + 10;
+    this.y  = Math.random() * pCanvas.height;
     this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = -(Math.random() * 0.4 + 0.1);
+    this.vy = (Math.random() - 0.5) * 0.4;
     this.r  = Math.random() * 1.5 + 0.4;
     this.alpha = Math.random() * 0.55 + 0.1;
     this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -148,7 +152,9 @@ class Particle {
     this.x   += this.vx;
     this.y   += this.vy;
     this.life++;
-    if (this.life > this.maxLife || this.y < -10) this.reset();
+    if (this.life > this.maxLife ||
+        this.x < -10 || this.x > pCanvas.width + 10 ||
+        this.y < -10 || this.y > pCanvas.height + 10) this.reset();
   }
   draw() {
     pCtx.save();
@@ -164,20 +170,40 @@ class Particle {
 }
 
 function drawConnections() {
-  const MAX_DIST = 90;
+  const MAX_DIST = 130;
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       const dx   = particles[i].x - particles[j].x;
       const dy   = particles[i].y - particles[j].y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < MAX_DIST) {
+        const x1 = particles[i].x, y1 = particles[i].y;
+        const x2 = particles[j].x, y2 = particles[j].y;
+        const strength = 1 - dist / MAX_DIST;
+        const baseA = strength * 0.07;   // faint constant body of the line
+        const peakA = strength * 0.22;   // bright travelling highlight
+
+        // Highlight position (0→1) travelling along the line, with a
+        // per-pair offset so lines illuminate out of sync.
+        let p = (constellationPhase + (i * 7 + j * 13) * 0.0007) % 1;
+        if (p < 0) p += 1;
+        p = Math.min(0.999, Math.max(0.001, p));
+
+        const grad = pCtx.createLinearGradient(x1, y1, x2, y2);
+        const lo = Math.max(0, p - 0.18);
+        const hi = Math.min(1, p + 0.18);
+        grad.addColorStop(0, `rgba(139,92,246,${baseA})`);
+        if (lo > 0) grad.addColorStop(lo, `rgba(139,92,246,${baseA})`);
+        grad.addColorStop(p, `rgba(190,160,255,${peakA})`);
+        if (hi < 1) grad.addColorStop(hi, `rgba(139,92,246,${baseA})`);
+        grad.addColorStop(1, `rgba(139,92,246,${baseA})`);
+
         pCtx.save();
-        pCtx.globalAlpha = (1 - dist / MAX_DIST) * 0.1;
-        pCtx.strokeStyle = '#8B5CF6';
-        pCtx.lineWidth   = 0.6;
+        pCtx.strokeStyle = grad;
+        pCtx.lineWidth   = 0.65;
         pCtx.beginPath();
-        pCtx.moveTo(particles[i].x, particles[i].y);
-        pCtx.lineTo(particles[j].x, particles[j].y);
+        pCtx.moveTo(x1, y1);
+        pCtx.lineTo(x2, y2);
         pCtx.stroke();
         pCtx.restore();
       }
@@ -185,14 +211,85 @@ function drawConnections() {
   }
 }
 
+// Occasionally launch a glowing pulse that leaves its cluster and arcs
+// over to a particle in a different, distant constellation — like an
+// electron jumping orbits.
+function spawnJump() {
+  if (particles.length < 2 || jumps.length >= 4) return;
+  const from = Math.floor(Math.random() * particles.length);
+  let to = -1;
+  for (let tries = 0; tries < 12; tries++) {
+    const cand = Math.floor(Math.random() * particles.length);
+    if (cand === from) continue;
+    const dx = particles[cand].x - particles[from].x;
+    const dy = particles[cand].y - particles[from].y;
+    const d  = Math.sqrt(dx * dx + dy * dy);
+    if (d > 160 && d < 440) { to = cand; break; } // far = a different cluster
+  }
+  if (to < 0) return;
+  jumps.push({
+    from, to,
+    t: 0,
+    speed: 0.011 + Math.random() * 0.009,
+    curve: (Math.random() - 0.5) * 0.4,        // arc bow amount
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+  });
+}
+
+function drawJumps() {
+  for (let k = jumps.length - 1; k >= 0; k--) {
+    const j = jumps[k];
+    const a = particles[j.from], b = particles[j.to];
+    if (!a || !b) { jumps.splice(k, 1); continue; }
+    j.t += j.speed;
+    if (j.t >= 1) { jumps.splice(k, 1); continue; }
+
+    const t = j.t, it = 1 - t;
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const len = Math.sqrt(dx * dx + dy * dy) || 1;
+    const px = -dy / len, py = dx / len;            // perpendicular for the arc
+    const cx = (a.x + b.x) / 2 + px * j.curve * len;
+    const cy = (a.y + b.y) / 2 + py * j.curve * len;
+
+    // Head position along the quadratic arc
+    const x = it * it * a.x + 2 * it * t * cx + t * t * b.x;
+    const y = it * it * a.y + 2 * it * t * cy + t * t * b.y;
+    const fade = Math.sin(Math.PI * t);            // fade in then out
+
+    pCtx.save();
+    // Faint arc trail
+    pCtx.globalAlpha = 0.18 * fade;
+    pCtx.strokeStyle = j.color;
+    pCtx.lineWidth = 0.7;
+    pCtx.beginPath();
+    pCtx.moveTo(a.x, a.y);
+    pCtx.quadraticCurveTo(cx, cy, b.x, b.y);
+    pCtx.stroke();
+
+    // Glowing travelling head
+    pCtx.globalAlpha = fade;
+    pCtx.shadowColor = j.color;
+    pCtx.shadowBlur = 8;
+    pCtx.fillStyle = '#EAF2FF';
+    pCtx.beginPath();
+    pCtx.arc(x, y, 1.7, 0, Math.PI * 2);
+    pCtx.fill();
+    pCtx.restore();
+  }
+}
+
 function startParticles() {
   pCanvas.width  = window.innerWidth;
   pCanvas.height = window.innerHeight;
-  particles = Array.from({ length: 100 }, () => new Particle());
+  particles = Array.from({ length: 150 }, () => new Particle());
+  jumps = [];
 
   function loop() {
     pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+    constellationPhase = (constellationPhase + 0.0022) % 1; // travel speed of the glow
     drawConnections();
+    if (Math.random() < 0.02) spawnJump();                  // occasional electron jump
+    drawJumps();
     particles.forEach(p => { p.update(); p.draw(); });
     pRaf = requestAnimationFrame(loop);
   }
