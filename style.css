@@ -815,6 +815,7 @@ body {
   padding: 2rem;
   position: relative;
   z-index: 1;
+  height: 100%;
   background: rgba(255,255,255,0.025);
 }
 .d-card__year {
@@ -1003,6 +1004,7 @@ body {
   padding: 2rem 1.25rem;
   position: relative;
   z-index: 1;
+  height: 100%;
   background: rgba(255,255,255,0.02);
 }
 .d-hobby-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
@@ -1384,13 +1386,13 @@ body {
 }
 .d-hobby-link:hover { color: var(--d-pink); }
 
-/* Skills chips — glossy platinum-silver with a soft lavender sheen */
+/* Skills chips — glossy metallic platinum-blue */
 .d-skill-group .d-tags span {
-  background: linear-gradient(175deg, #ffffff 0%, #f6f4fb 24%, #e3ddee 48%, #d5cee4 60%, #f1edf8 100%);
-  color: #4b4666;
-  border: 1px solid rgba(214,206,232,0.9);
+  background: linear-gradient(175deg, #ffffff 0%, #eef3fb 24%, #d3e0f2 48%, #bcd0ec 60%, #e9f1fb 100%);
+  color: #24405f;
+  border: 1px solid rgba(180,206,236,0.9);
   box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.98),
-              inset 0 -2px 3px rgba(168,154,196,0.3),
+              inset 0 -2px 3px rgba(120,150,190,0.32),
               0 1px 2px rgba(0,0,0,0.18);
 }
 
@@ -1432,7 +1434,7 @@ body {
   padding: 1.75rem;
   background: rgba(139,92,246,0.05);
   box-shadow: 0 0 0 1px rgba(206,196,226,0.14), 0 8px 30px rgba(0,0,0,0.25);
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s ease-out;
 }
 .d-contact-form:hover {
   border-color: rgba(206,196,226,0.8);
@@ -1475,8 +1477,9 @@ body {
   border: 1px solid rgba(139,92,246,0.4);
   background: rgba(10,10,25,0.72);
   backdrop-filter: blur(6px);
-  font-size: 1.4rem;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -1484,13 +1487,15 @@ body {
   transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
   z-index: 300;
 }
+.d-top-btn img { width: 32px; height: 32px; display: block; pointer-events: none; }
 .d-top-btn.show { opacity: 1; pointer-events: all; transform: translateY(0); }
 .d-top-btn:hover { box-shadow: 0 0 18px var(--d-glow-p); transform: translateY(-3px); }
 
 /* Launch: rocket flies up trailing fire + smoke */
 .d-top-btn.launching {
   pointer-events: none;
-  animation: rocketLaunch 1.9s cubic-bezier(0.55, 0, 0.7, 1) forwards;
+  /* upward flight is driven by JS (setting transform) for reliability;
+     the flame + smoke below are CSS. */
 }
 .d-top-btn.launching::after {   /* flame */
   content: '';
@@ -1635,3 +1640,6 @@ button.d-proj-field {
 /* Sub-page nav layout */
 .d-nav--sub { justify-content: space-between; }
 .d-nav--sub .d-nav__links { flex-wrap: wrap; }
+
+/* Sub-page body uses the dark void background (footer etc.) */
+.void-body { background: var(--d-bg); }

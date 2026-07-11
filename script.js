@@ -120,6 +120,28 @@ document.getElementById('exitDark').addEventListener('click', () => {
   });
 });
 
+// Arriving from a sub-page with a #d-... hash (e.g. "Back to portfolio"):
+// open the dark page directly instead of the light landing page.
+// Defined here but invoked from INIT (after all module vars are set up).
+function openDarkFromHash() {
+  // Only jump to the dark page when a sub-page explicitly asked for it
+  // (one-time flag). On a plain reload the flag is absent -> show white first.
+  if (sessionStorage.getItem('openDark') !== '1') return;
+  sessionStorage.removeItem('openDark');
+  pageLight.classList.add('hidden');
+  pageDark.classList.remove('hidden');
+  document.body.style.background = '#050510';
+  startParticles();
+  initDarkObserver();
+  startTypewriter();
+  const targetId = location.hash.slice(1);
+  requestAnimationFrame(() => {
+    const el = document.getElementById(targetId);
+    if (el) el.scrollIntoView();
+    else window.scrollTo(0, 0);
+  });
+}
+
 
 /* ════════════════════════════════════════════════
    PARTICLE BACKGROUND
@@ -452,32 +474,38 @@ window.addEventListener('scroll', () => {
 const dTopBtn = document.getElementById('d-top-btn');
 if (dTopBtn) {
   window.addEventListener('scroll', () => {
-    if (!dTopBtn.classList.contains('launching')) {
+    if (!dTopBtn.dataset.launching) {
       dTopBtn.classList.toggle('show', window.scrollY > 600);
     }
   }, { passive: true });
-
-  dTopBtn.addEventListener('click', () => {
-    if (dTopBtn.classList.contains('launching')) return;
-    dTopBtn.classList.add('launching');
-    slowScrollToTop(1900);              // matches the rocket flight duration
-    setTimeout(() => {
-      dTopBtn.classList.remove('launching', 'show');
-    }, 1900);
-  });
+  dTopBtn.addEventListener('click', () => launchRocket(dTopBtn));
 }
 
-// Eased slow scroll so the rocket is visible flying up
-function slowScrollToTop(duration) {
-  const start = window.scrollY;
-  const startTime = performance.now();
-  function step(now) {
-    const t = Math.min(1, (now - startTime) / duration);
-    const ease = 1 - Math.pow(1 - t, 3);
-    window.scrollTo(0, start * (1 - ease));
-    if (t < 1) requestAnimationFrame(step);
+// JS-driven rocket launch: fly the button up (accelerating) while the page
+// eases to the top, so it works reliably in any container context.
+function launchRocket(btn) {
+  if (btn.dataset.launching) return;
+  btn.dataset.launching = '1';
+  btn.classList.add('launching');       // triggers the CSS flame + smoke
+  const duration = 1900;
+  const t0 = performance.now();
+  const scrollStart = window.scrollY;
+  const flyDist = window.innerHeight + 180;
+  function frame(now) {
+    const t = Math.min(1, (now - t0) / duration);
+    const easeOut = 1 - Math.pow(1 - t, 3);
+    window.scrollTo(0, scrollStart * (1 - easeOut));
+    const up = t * t;                    // accelerate upward like a launch
+    btn.style.transform = 'translateY(' + (-up * flyDist) + 'px) rotate(' + (t * 6) + 'deg)';
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      btn.classList.remove('launching', 'show');
+      btn.style.transform = '';
+      delete btn.dataset.launching;
+    }
   }
-  requestAnimationFrame(step);
+  requestAnimationFrame(frame);
 }
 
 
@@ -542,3 +570,4 @@ initProjectFilters(document);
    INIT
 ════════════════════════════════════════════════ */
 initLightObserver();
+openDarkFromHash();
