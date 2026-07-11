@@ -411,6 +411,29 @@ function initDarkObserver() {
 
   document.querySelectorAll('#page-dark .d-reveal').forEach(el => obs.observe(el));
   initTilt();
+  initTimelineGlow();
+}
+
+// Illuminate the dots of only the experience tile you've currently reached —
+// the one whose centre is nearest the middle of the viewport.
+function initTimelineGlow() {
+  const items = Array.from(document.querySelectorAll('#page-dark .d-timeline__item'));
+  if (!items.length) return;
+
+  function update() {
+    const mid = window.innerHeight / 2;
+    let best = null, bestDist = Infinity;
+    items.forEach(it => {
+      const r = it.getBoundingClientRect();
+      const centre = r.top + r.height / 2;
+      const dist = Math.abs(centre - mid);
+      if (dist < bestDist) { bestDist = dist; best = it; }
+    });
+    items.forEach(it => it.classList.toggle('active', it === best));
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 }
 
 
@@ -421,6 +444,41 @@ const lNav = document.getElementById('l-nav');
 window.addEventListener('scroll', () => {
   lNav.classList.toggle('scrolled', window.scrollY > 20);
 }, { passive: true });
+
+
+/* ════════════════════════════════════════════════
+   SCROLL TO TOP (dark page)
+════════════════════════════════════════════════ */
+const dTopBtn = document.getElementById('d-top-btn');
+if (dTopBtn) {
+  window.addEventListener('scroll', () => {
+    if (!dTopBtn.classList.contains('launching')) {
+      dTopBtn.classList.toggle('show', window.scrollY > 600);
+    }
+  }, { passive: true });
+
+  dTopBtn.addEventListener('click', () => {
+    if (dTopBtn.classList.contains('launching')) return;
+    dTopBtn.classList.add('launching');
+    slowScrollToTop(1900);              // matches the rocket flight duration
+    setTimeout(() => {
+      dTopBtn.classList.remove('launching', 'show');
+    }, 1900);
+  });
+}
+
+// Eased slow scroll so the rocket is visible flying up
+function slowScrollToTop(duration) {
+  const start = window.scrollY;
+  const startTime = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - startTime) / duration);
+    const ease = 1 - Math.pow(1 - t, 3);
+    window.scrollTo(0, start * (1 - ease));
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
 
 
 /* ════════════════════════════════════════════════
@@ -456,6 +514,28 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+
+/* ════════════════════════════════════════════════
+   PROJECT FILTERS (dark page)
+════════════════════════════════════════════════ */
+function initProjectFilters(scope) {
+  const root = scope || document;
+  const chips = root.querySelectorAll('.d-proj-field[data-filter]');
+  const cards = root.querySelectorAll('.d-project-card[data-cat]');
+  if (!chips.length || !cards.length) return;
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter;
+      chips.forEach(c => c.classList.toggle('active', c === chip));
+      cards.forEach(card => {
+        const cats = (card.dataset.cat || '').split(' ');
+        card.style.display = (f === 'all' || cats.includes(f)) ? '' : 'none';
+      });
+    });
+  });
+}
+initProjectFilters(document);
 
 
 /* ════════════════════════════════════════════════

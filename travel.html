@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel · Anannya P. Neog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav class="d-nav d-nav--sub">
+  <a class="d-nav__logo" href="./index.html#d-about">APN</a>
+  <div class="d-nav__links">
+    <a href="./index.html#d-aboutme"   class="d-nav__btn" data-label="About">About</a>
+    <a href="./index.html#d-education"  class="d-nav__btn" data-label="Education">Education</a>
+    <a href="./index.html#d-experience" class="d-nav__btn" data-label="Experience">Experience</a>
+    <a href="./projects.html"           class="d-nav__btn" data-label="Projects">Projects</a>
+    <a href="./index.html#d-skills"     class="d-nav__btn" data-label="Skills">Skills</a>
+    <a href="./index.html#d-hobbies"    class="d-nav__btn" data-label="Hobbies">Hobbies</a>
+    <a href="./index.html#d-contact"    class="d-nav__btn" data-label="Contact">Contact</a>
+  </div>
+</nav>
+<div class="subpage">
+  <div class="subpage__inner">
+    <a href="./index.html#d-hobbies" class="subpage__back">← Back to portfolio</a>
+    <h1>✈️ Travel</h1>
+    <p class="subpage__lead">
+      Places I've wandered and the ones still on my list. Photos and stories coming soon.
+    </p>
+    <div class="subpage-gallery">
+      <div class="subpage-tile"><div class="subpage-tile__img d-proj-img--audio">🏔️</div><div class="subpage-tile__body"><h3>Coming soon</h3><p>A trip will show up here.</p></div></div>
+      <div class="subpage-tile"><div class="subpage-tile__img d-proj-img--piano">🌊</div><div class="subpage-tile__body"><h3>Coming soon</h3><p>A trip will show up here.</p></div></div>
+      <div class="subpage-tile"><div class="subpage-tile__img d-proj-img--data">🏜️</div><div class="subpage-tile__body"><h3>Coming soon</h3><p>A trip will show up here.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="d-footer">
+  <p>© Anannya P. Neog &nbsp;·&nbsp; Built in the void &nbsp;·&nbsp; 2026</p>
+</footer>
+
+<button id="d-top-btn" class="d-top-btn" aria-label="Back to top">🚀</button>
+
+<script>
+  (function () {
+    var btn = document.getElementById('d-top-btn');
+    function slowScrollToTop(duration) {
+      var start = window.scrollY, startTime = performance.now();
+      function step(now) {
+        var t = Math.min(1, (now - startTime) / duration);
+        var ease = 1 - Math.pow(1 - t, 3);
+        window.scrollTo(0, start * (1 - ease));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('scroll', function () {
+      if (!btn.classList.contains('launching')) {
+        btn.classList.toggle('show', window.scrollY > 400);
+      }
+    }, { passive: true });
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('launching')) return;
+      btn.classList.add('launching');
+      slowScrollToTop(1900);
+      setTimeout(function () { btn.classList.remove('launching', 'show'); }, 1900);
+    });
+  })();
+</script>
+</body>
+</html>

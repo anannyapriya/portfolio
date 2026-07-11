@@ -57,7 +57,9 @@
       </div>
       <div class="l-hero__visual reveal">
         <div class="avatar-ring">
-          <div class="avatar-inner">APN</div>
+          <div class="avatar-inner">
+            <img src="./assets/anannya.jpg" alt="Anannya P. Neog" class="avatar-photo" />
+          </div>
           <div class="avatar-ring__orbit orbit-1"></div>
           <div class="avatar-ring__orbit orbit-2"></div>
         </div>
@@ -322,7 +324,7 @@
   <nav class="d-nav" id="d-nav">
     <a class="d-nav__logo" href="#d-about">APN</a>
     <div class="d-nav__links" id="d-nav-links">
-      <a href="#d-about"      class="d-nav__btn" data-label="About">About</a>
+      <a href="#d-aboutme"    class="d-nav__btn" data-label="About">About</a>
       <a href="#d-education"  class="d-nav__btn" data-label="Education">Education</a>
       <a href="#d-experience" class="d-nav__btn" data-label="Experience">Experience</a>
       <a href="#d-projects"   class="d-nav__btn" data-label="Projects">Projects</a>
@@ -337,24 +339,67 @@
     </button>
   </nav>
 
-  <!-- DARK HERO / ABOUT -->
+  <!-- DARK HERO -->
   <section id="d-about" class="d-hero">
-    <div class="d-hero__content">
-      <p class="d-hero__greeting">Hello, Universe.</p>
-      <h1 class="d-hero__name glitch" data-text="Anannya P. Neog">Anannya P. Neog</h1>
-      <p class="d-hero__role"><span class="typewriter" id="typewriter"></span><span class="cursor">|</span></p>
-      <p class="d-hero__bio">
-        Code is my canvas. I engineer at the edge of logic and imagination —
-        building systems that breathe, interfaces that feel alive,
-        and experiences that resonate long after the screen goes dark.
-      </p>
-      <div class="d-hero__cta">
-        <a href="#d-projects" class="d-btn-primary">Explore My Universe</a>
+    <div class="d-hero__grid">
+      <div class="d-hero__text">
+        <p class="d-hero__greeting">Hello, Universe.</p>
+        <h1 class="d-hero__name glitch" data-text="Anannya P. Neog">Anannya P. Neog</h1>
+        <p class="d-hero__role"><span class="typewriter" id="typewriter"></span><span class="cursor">|</span></p>
+        <p class="d-hero__bio">
+          Code is my canvas. I engineer at the edge of logic and imagination,
+          building systems that breathe, interfaces that feel alive, and
+          experiences that resonate long after the screen goes dark.
+        </p>
+        <div class="d-hero__cta">
+          <a href="#d-projects" class="d-btn-primary">Explore My Universe</a>
+        </div>
+      </div>
+      <div class="d-avatar d-avatar--hero">
+        <div class="d-avatar__frame">
+          <img src="./assets/anannya.jpg" alt="Anannya P. Neog" class="d-avatar__photo" />
+        </div>
       </div>
     </div>
     <div class="d-scroll-hint">
       <div class="d-scroll-line"></div>
       <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- DARK ABOUT ME -->
+  <section id="d-aboutme" class="d-section">
+    <div class="l-container">
+      <h2 class="d-section__title d-reveal">About Me</h2>
+      <div class="d-about">
+        <p class="d-reveal">
+          I'm a graduate student in <strong>Computer Science at UC Santa Cruz</strong>, and
+          honestly most of what I build starts with the same question: how do I make
+          something smart actually feel good to use? I spend my days in the
+          <strong>AI Explainability and Accountability Lab</strong> building a legal
+          question-answering system, wiring together <strong>vector search</strong> and
+          <strong>knowledge graphs</strong> so the answers people get are not just accurate
+          but traceable back to where they came from. On the side I teach
+          <strong>data structures</strong> and an AI-and-music course as a TA, which keeps me
+          honest about explaining hard things simply.
+        </p>
+        <p class="d-reveal">
+          A lot of my favourite work lives where <strong>machine learning meets sound</strong>.
+          I've built systems that blend the timbre of one track onto another with
+          <strong>Mel-spectrogram optimization</strong>, restored century-old piano recordings
+          using <strong>CNNs and autoencoders</strong>, and even a two-way
+          <strong>Indian Sign Language translator</strong> that made it into a journal. Before
+          grad school I shipped real products too, from <strong>big-data pipelines</strong> in
+          PySpark to <strong>React</strong> frontends serving tens of thousands of users. I care
+          as much about the interface as the model underneath it.
+        </p>
+        <p class="d-reveal">
+          When I step away from the screen you'll usually find me drawing, planning my
+          next trip somewhere new, or getting lost in music. Those things aren't a break
+          from the work so much as where a lot of the ideas come from. If any of this
+          resonates, I'd love to build something together.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -366,9 +411,11 @@
         <div class="d-card d-reveal" data-tilt>
           <div class="d-card__glow"></div>
           <div class="d-card__inner">
+            <span class="d-edu-icon">🏛️</span>
             <span class="d-card__year">Sep 2024 – Present</span>
             <h3>M.S. · Computer Science &amp; Engineering</h3>
             <p>University of California, Santa Cruz</p>
+            <p class="d-edu-courses"><strong>Coursework:</strong> Artificial Intelligence, Neural Computation, Analysis of Algorithms, Machine Learning, Foundations of Deep Learning, Computer Networks, Machine Learning in NLP, Interactive Storytelling</p>
             <div class="d-bar">
               <span>GPA</span>
               <div class="d-bar__track"><div class="d-bar__fill" style="--w:94%"></div></div>
@@ -379,9 +426,11 @@
         <div class="d-card d-reveal" data-tilt>
           <div class="d-card__glow"></div>
           <div class="d-card__inner">
+            <span class="d-edu-icon">🏛️</span>
             <span class="d-card__year">Jul 2019 – May 2023</span>
             <h3>B.Tech · Computer Science &amp; Engineering</h3>
             <p>SRM Institute of Science and Technology, Chennai</p>
+            <p class="d-edu-courses"><strong>Coursework:</strong> Artificial Intelligence, Natural Language Processing, Machine Learning, Software Engineering &amp; Project Management, Data Structures &amp; Algorithms, DBMS, Data Mining &amp; Analytics, Digital Image Processing, Genetic Programming</p>
             <div class="d-bar">
               <span>GPA</span>
               <div class="d-bar__track"><div class="d-bar__fill" style="--w:99%"></div></div>
@@ -403,10 +452,10 @@
             <div class="d-timeline__pulse"></div>
           </div>
           <div class="d-timeline__body">
-            <h3>AI Explainability &amp; Accountability (AIEA) Lab, UCSC</h3>
-            <p class="d-role-tag">Graduate Researcher &nbsp;·&nbsp; Sep 2025 – Present</p>
-            <p>Built an AI-powered legal QA system with hybrid retrieval — top-k vector search over Chroma fused with Neo4j knowledge-graph expansion — and a React/TypeScript chat interface with source-cited answers.</p>
-            <div class="d-tags"><span>Python</span><span>React</span><span>Neo4j</span><span>RAG</span></div>
+            <h3 class="d-exp-role">Graduate Researcher</h3>
+            <p class="d-exp-org"><span class="d-exp-icon">🏛️</span> AI Explainability &amp; Accountability (AIEA) Lab, UCSC <span class="d-exp-date">· Sep 2025 – Present</span></p>
+            <p>Built an AI-powered legal QA system with hybrid retrieval, fusing top-k vector search over Chroma with Neo4j knowledge-graph expansion, and a React/TypeScript chat interface with source-cited answers.</p>
+            <div class="d-tags"><span>Python</span><span>React</span><span>Neo4j</span><span>RAG</span><span>Chroma</span></div>
           </div>
         </div>
         <div class="d-timeline__item d-reveal">
@@ -414,10 +463,10 @@
             <div class="d-timeline__pulse"></div>
           </div>
           <div class="d-timeline__body">
-            <h3>University of California, Santa Cruz</h3>
-            <p class="d-role-tag">Graduate Teaching Assistant &nbsp;·&nbsp; Jan 2025 – Present</p>
+            <h3 class="d-exp-role">Graduate Teaching Assistant</h3>
+            <p class="d-exp-org"><span class="d-exp-icon">🏛️</span> University of California, Santa Cruz <span class="d-exp-date">· Jan 2025 – Present</span></p>
             <p>TA for CSE 101 (Data Structures &amp; Algorithms) and MUSC 80L (AI &amp; Music), guiding students on algorithmic and neural-network audio tasks and evaluating hundreds of assignments and exams.</p>
-            <div class="d-tags"><span>Python</span><span>DSA</span><span>Neural Networks</span></div>
+            <div class="d-tags"><span>Python</span><span>DSA</span><span>Neural Networks</span><span>Teaching</span></div>
           </div>
         </div>
         <div class="d-timeline__item d-reveal">
@@ -425,10 +474,10 @@
             <div class="d-timeline__pulse"></div>
           </div>
           <div class="d-timeline__body">
-            <h3>REGex Software Services</h3>
-            <p class="d-role-tag">Big Data Analytics Intern &nbsp;·&nbsp; Jul 2021 – Sep 2021</p>
+            <h3 class="d-exp-role">Big Data Analytics Intern</h3>
+            <p class="d-exp-org"><span class="d-exp-icon">🏢</span> REGex Software Services <span class="d-exp-date">· Jul 2021 – Sep 2021</span></p>
             <p>Built PySpark, Talend ETL and Hive pipelines over 10K booking records, deriving demand and revenue metrics with Spark SQL and visualising them in interactive Power BI dashboards.</p>
-            <div class="d-tags"><span>PySpark</span><span>Hive</span><span>Power BI</span></div>
+            <div class="d-tags"><span>PySpark</span><span>Talend ETL</span><span>Hive</span><span>Power BI</span></div>
           </div>
         </div>
         <div class="d-timeline__item d-reveal">
@@ -436,10 +485,10 @@
             <div class="d-timeline__pulse"></div>
           </div>
           <div class="d-timeline__body">
-            <h3>InMovidu Tech</h3>
-            <p class="d-role-tag">Web Development Intern &nbsp;·&nbsp; May 2020 – Jun 2020</p>
+            <h3 class="d-exp-role">Web Development Intern</h3>
+            <p class="d-exp-org"><span class="d-exp-icon">🏢</span> InMovidu Tech <span class="d-exp-date">· May 2020 – Jun 2020</span></p>
             <p>Built a responsive React.js movie-ticket booking frontend with seat selection and checkout flows for a 50K-user platform, using reusable Hooks/Axios components with robust loading and error states.</p>
-            <div class="d-tags"><span>React</span><span>JavaScript</span><span>REST APIs</span></div>
+            <div class="d-tags"><span>React</span><span>JavaScript</span><span>Axios</span><span>REST APIs</span></div>
           </div>
         </div>
       </div>
@@ -450,43 +499,105 @@
   <section id="d-projects" class="d-section">
     <div class="l-container">
       <h2 class="d-section__title d-reveal">Projects</h2>
+      <p class="d-section__sub d-reveal">Fields I've explored, from models to interfaces.</p>
+      <div class="d-proj-fields d-reveal" id="d-proj-filters">
+        <button class="d-proj-field active" data-filter="all">All</button>
+        <button class="d-proj-field" data-filter="ai">🤖 AI / ML</button>
+        <button class="d-proj-field" data-filter="nlp">🗣️ NLP</button>
+        <button class="d-proj-field" data-filter="audio">🎵 Audio ML</button>
+        <button class="d-proj-field" data-filter="fullstack">🖥️ Full Stack</button>
+        <button class="d-proj-field" data-filter="bigdata">📊 Big Data</button>
+      </div>
       <div class="d-projects-grid">
-        <div class="d-project-card d-reveal" data-tilt>
+        <div class="d-project-card d-reveal" data-tilt data-cat="ai audio">
           <div class="d-project-card__glow"></div>
           <div class="d-project-card__inner">
+            <div class="d-project-card__img d-proj-img--audio"><a class="d-proj-img-link" href="https://github.com/anannyapriya" target="_blank" aria-label="Open on GitHub"></a>
+              <svg class="d-proj-svg" viewBox="0 0 120 60"><g fill="rgba(255,255,255,0.92)"><rect x="10" y="22" width="7" height="16" rx="3"/><rect x="24" y="12" width="7" height="36" rx="3"/><rect x="38" y="4" width="7" height="52" rx="3"/><rect x="52" y="18" width="7" height="24" rx="3"/><rect x="66" y="8" width="7" height="44" rx="3"/><rect x="80" y="20" width="7" height="20" rx="3"/><rect x="94" y="6" width="7" height="48" rx="3"/><rect x="108" y="24" width="7" height="12" rx="3"/></g></svg>
+            </div>
             <div class="d-project-card__top">
-              <span class="d-proj-num">01</span>
-              <div class="d-proj-links"><a href="#" target="_blank">↗</a></div>
+              <span class="d-proj-cat">Audio ML</span>
+              <div class="d-proj-links">
+                <a href="https://github.com/anannyapriya" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+              </div>
             </div>
             <h3>Audio Genre Blending</h3>
-            <p>Optimization-based audio style transfer via direct Mel-spectrogram optimization in TensorFlow — over 90% reduction in total and style loss, no network training required.</p>
-            <div class="d-tags"><span>TensorFlow</span><span>Audio ML</span></div>
+            <p>Optimization-based audio style transfer via direct Mel-spectrogram optimization in TensorFlow, cutting total and style loss by over 90% with no network training required.</p>
+            <div class="d-tags"><span>TensorFlow</span><span>Librosa</span><span>Audio ML</span></div>
           </div>
         </div>
-        <div class="d-project-card d-reveal" data-tilt>
+        <div class="d-project-card d-reveal" data-tilt data-cat="ai audio">
           <div class="d-project-card__glow"></div>
           <div class="d-project-card__inner">
+            <div class="d-project-card__img d-proj-img--piano"><a class="d-proj-img-link" href="https://github.com/anannyapriya" target="_blank" aria-label="Open on GitHub"></a>
+              <svg class="d-proj-svg" viewBox="0 0 120 60"><rect x="16" y="12" width="88" height="40" rx="4" fill="rgba(255,255,255,0.94)"/><g fill="#15121f"><rect x="30" y="12" width="9" height="24" rx="1.5"/><rect x="48" y="12" width="9" height="24" rx="1.5"/><rect x="72" y="12" width="9" height="24" rx="1.5"/><rect x="88" y="12" width="9" height="24" rx="1.5"/></g></svg>
+            </div>
             <div class="d-project-card__top">
-              <span class="d-proj-num">02</span>
-              <div class="d-proj-links"><a href="#" target="_blank">↗</a></div>
+              <span class="d-proj-cat">Deep Learning</span>
+              <div class="d-proj-links">
+                <a href="https://github.com/anannyapriya" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+              </div>
             </div>
             <h3>Echoes Reborn</h3>
-            <p>End-to-end historic-piano audio restoration with a CNN classifier and convolutional autoencoder denoiser — 21.21 dB SNR gain and 99.92% classification accuracy.</p>
-            <div class="d-tags"><span>CNN</span><span>Librosa</span></div>
+            <p>End-to-end historic-piano restoration with a CNN classifier and convolutional autoencoder denoiser, reaching a 21.21 dB SNR gain and 99.92% classification accuracy.</p>
+            <div class="d-tags"><span>CNN</span><span>Autoencoder</span><span>Librosa</span></div>
           </div>
         </div>
-        <div class="d-project-card d-reveal" data-tilt>
+        <div class="d-project-card d-reveal" data-tilt data-cat="ai nlp">
           <div class="d-project-card__glow"></div>
           <div class="d-project-card__inner">
+            <div class="d-project-card__img d-proj-img--sign"><a class="d-proj-img-link" href="https://github.com/anannyapriya" target="_blank" aria-label="Open on GitHub"></a>
+              <svg class="d-proj-svg" viewBox="0 0 120 60"><g fill="none" stroke="rgba(255,255,255,0.94)" stroke-width="4"><rect x="12" y="10" width="52" height="30" rx="8"/><rect x="60" y="24" width="48" height="26" rx="8"/></g><g fill="rgba(255,255,255,0.94)"><circle cx="26" cy="25" r="2.6"/><circle cx="38" cy="25" r="2.6"/><circle cx="50" cy="25" r="2.6"/></g></svg>
+            </div>
             <div class="d-project-card__top">
-              <span class="d-proj-num">03</span>
-              <div class="d-proj-links"><a href="https://doi.org/10.21817/indjcse/2023/v14i3/231403030" target="_blank">↗</a></div>
+              <span class="d-proj-cat">NLP · CV</span>
+              <div class="d-proj-links">
+                <a href="https://github.com/anannyapriya" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                <a href="https://doi.org/10.21817/indjcse/2023/v14i3/231403030" target="_blank" aria-label="Paper"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></a>
+              </div>
             </div>
             <h3>Indian Sign Language Translation</h3>
-            <p>Two-way ISL ↔ Text/Speech system with EfficientNet-B0 gesture recognition on Android (TF Lite) and an NLP speech-to-sign pipeline. Published in IJCSE, 2023.</p>
-            <div class="d-tags"><span>OpenCV</span><span>NLP</span></div>
+            <p>Two-way ISL to Text/Speech system with EfficientNet-B0 gesture recognition on Android (TF Lite) and an NLP speech-to-sign pipeline. Published in IJCSE, 2023.</p>
+            <div class="d-tags"><span>OpenCV</span><span>TensorFlow</span><span>NLP</span><span>Android</span></div>
           </div>
         </div>
+        <div class="d-project-card d-reveal" data-tilt data-cat="fullstack ai">
+          <div class="d-project-card__glow"></div>
+          <div class="d-project-card__inner">
+            <div class="d-project-card__img d-proj-img--fathom"><a class="d-proj-img-link" href="https://github.com/anannyapriya" target="_blank" aria-label="Open on GitHub"></a>
+              <svg class="d-proj-svg" viewBox="0 0 120 60" fill="none" stroke="rgba(255,255,255,0.94)" stroke-width="5" stroke-linecap="round"><circle cx="54" cy="26" r="16"/><line x1="66" y1="38" x2="84" y2="52"/></svg>
+            </div>
+            <div class="d-project-card__top">
+              <span class="d-proj-cat">Coming Soon</span>
+            </div>
+            <h3>Fathom</h3>
+            <p>Details coming soon.</p>
+            <div class="d-tags"><span>TBA</span></div>
+          </div>
+        </div>
+        <div class="d-project-card d-reveal" data-tilt data-cat="fullstack">
+          <div class="d-project-card__glow"></div>
+          <div class="d-project-card__inner">
+            <div class="d-project-card__img d-proj-img--trimr"><a class="d-proj-img-link" href="https://github.com/anannyapriya" target="_blank" aria-label="Open on GitHub"></a>
+              <svg class="d-proj-svg" viewBox="0 0 120 60" fill="none" stroke="rgba(255,255,255,0.94)" stroke-width="4" stroke-linecap="round"><circle cx="30" cy="18" r="8"/><circle cx="30" cy="42" r="8"/><line x1="37" y1="22" x2="94" y2="42"/><line x1="37" y1="38" x2="94" y2="18"/></svg>
+            </div>
+            <div class="d-project-card__top">
+              <span class="d-proj-cat">Coming Soon</span>
+            </div>
+            <h3>Trimr</h3>
+            <p>Details coming soon.</p>
+            <div class="d-tags"><span>TBA</span></div>
+          </div>
+        </div>
+        <a class="d-project-card d-project-card--more d-reveal" href="./projects.html" data-tilt>
+          <div class="d-project-card__glow"></div>
+          <div class="d-project-card__inner d-more-inner">
+            <span class="d-more-icon">🗂️</span>
+            <h3>Explore more projects</h3>
+            <p>See the full collection across AI, audio, full-stack and big data.</p>
+            <span class="d-more-cta">View all ↗</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -553,14 +664,16 @@
             <span class="d-hobby-icon">🎨</span>
             <h4>Digital Art</h4>
             <p>Creating visual art and exploring aesthetics in digital mediums</p>
+            <a href="./art.html" class="d-hobby-link">Check out my art ↗</a>
           </div>
         </div>
         <div class="d-hobby-card d-reveal" data-tilt>
           <div class="d-hobby-card__glow"></div>
           <div class="d-hobby-card__inner">
-            <span class="d-hobby-icon">📚</span>
-            <h4>Reading</h4>
-            <p>Science fiction, technical papers, and philosophy of mind</p>
+            <span class="d-hobby-icon">✈️</span>
+            <h4>Travel</h4>
+            <p>Chasing new places, trails, and the stories they leave behind</p>
+            <a href="./travel.html" class="d-hobby-link">See where I've been ↗</a>
           </div>
         </div>
         <div class="d-hobby-card d-reveal" data-tilt>
@@ -569,6 +682,7 @@
             <span class="d-hobby-icon">🎵</span>
             <h4>Music</h4>
             <p>Guitar, and discovering indie &amp; electronic artists</p>
+            <a href="./music.html" class="d-hobby-link">My playlists ↗</a>
           </div>
         </div>
         <div class="d-hobby-card d-reveal" data-tilt>
@@ -585,36 +699,57 @@
 
   <!-- DARK CONTACT -->
   <section id="d-contact" class="d-section">
-    <div class="l-container l-contact">
+    <div class="l-container">
       <h2 class="d-section__title d-reveal">Contact</h2>
-      <p class="d-contact__sub d-reveal">Transmit a signal. I'm always listening.</p>
-      <a href="mailto:anannya903@gmail.com" class="d-btn-primary d-reveal">Send Transmission ↗</a>
-      <div class="d-socials d-reveal">
-        <a href="mailto:anannya903@gmail.com" class="d-social" aria-label="Personal Email" title="anannya903@gmail.com"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></svg></a>
-        <a href="mailto:aneog@ucsc.edu" class="d-social" aria-label="UCSC Email" title="aneog@ucsc.edu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16l-5 2.73L7 16v-3.73L12 15l5-2.73V16z"/></svg></a>
-        <a href="tel:+18315297340" class="d-social" aria-label="Phone" title="+1 (831) 529-7340"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.24 1z"/></svg></a>
-        <a href="https://github.com/anannyapriya" target="_blank" class="d-social" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
-        <a href="https://linkedin.com/in/[your-linkedin]" target="_blank" class="d-social" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
-        <a href="https://instagram.com/[your-instagram]" target="_blank" class="d-social" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
-        <a href="https://facebook.com/[your-facebook]" target="_blank" class="d-social" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://twitter.com/[your-twitter]" target="_blank" class="d-social" aria-label="X" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <div class="d-contact-grid">
+        <div class="d-contact-info d-reveal">
+          <p class="d-contact__sub">
+            I'm open to collaborations and always happy to talk through new ideas or
+            career opportunities. If you're building something interesting, let's connect.
+          </p>
+          <ul class="d-contact-list">
+            <li><span class="d-ci">✉️</span> <a href="mailto:anannya903@gmail.com">anannya903@gmail.com</a></li>
+            <li><span class="d-ci">🎓</span> <a href="mailto:aneog@ucsc.edu">aneog@ucsc.edu</a></li>
+            <li><span class="d-ci">📍</span> San Jose, CA, USA</li>
+          </ul>
+          <p class="d-contact-reach">You can also reach out to me on</p>
+          <div class="d-socials">
+            <a href="https://linkedin.com/in/[your-linkedin]" target="_blank" class="d-social" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
+            <a href="https://github.com/anannyapriya" target="_blank" class="d-social" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+            <a href="https://instagram.com/[your-instagram]" target="_blank" class="d-social" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+            <a href="https://facebook.com/[your-facebook]" target="_blank" class="d-social" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="https://twitter.com/[your-twitter]" target="_blank" class="d-social" aria-label="X" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+
+        <form class="d-contact-form d-reveal" data-tilt action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <label class="d-field">
+            <span>Name</span>
+            <input type="text" name="name" required placeholder="Your name" />
+          </label>
+          <label class="d-field">
+            <span>Email</span>
+            <input type="email" name="email" required placeholder="you@example.com" />
+          </label>
+          <label class="d-field">
+            <span>Subject</span>
+            <input type="text" name="subject" placeholder="What's this about?" />
+          </label>
+          <label class="d-field">
+            <span>Message</span>
+            <textarea name="message" rows="5" required placeholder="Tell me a little about it..."></textarea>
+          </label>
+          <button type="submit" class="d-btn-primary">Send Message ↗</button>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- DARK RESUME -->
-  <section id="d-resume" class="d-section">
-    <div class="l-container l-contact">
-      <h2 class="d-section__title d-reveal">Resume</h2>
-      <p class="d-reveal" style="color:var(--d-muted); margin-bottom:2rem;">
-        Download my CV and explore the full picture.
-      </p>
-      <a href="./assets/resume.pdf" target="_blank" class="d-btn-primary d-reveal">Download CV ↗</a>
-    </div>
-  </section>
+  <!-- SCROLL TO TOP -->
+  <button id="d-top-btn" class="d-top-btn" aria-label="Back to top">🚀</button>
 
   <footer class="d-footer">
-    <p>Anannya P. Neog &nbsp;·&nbsp; Built in the void &nbsp;·&nbsp; 2025</p>
+    <p>© Anannya P. Neog &nbsp;·&nbsp; Built in the void &nbsp;·&nbsp; 2026</p>
   </footer>
 
 </div><!-- /page-dark -->
