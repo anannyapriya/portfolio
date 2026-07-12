@@ -1849,3 +1849,75 @@ button.d-proj-field {
 .l-project-card--more h3 { color: var(--l-accent); font-size: 1.15rem; }
 .l-project-card--more p { color: var(--l-muted); font-size: 0.85rem; max-width: 240px; }
 .l-more-cta { margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--l-accent); }
+
+/* ═══════════ LIVE SKY (hero background) ═══════════ */
+.l-hero { position: relative; overflow: hidden; }
+.sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #0a1030;
+}
+.sky canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sky__clock {
+  position: absolute;
+  top: 88px;
+  right: 26px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 99px;
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.sky__stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 3s linear;
+  pointer-events: none;
+}
+.sky__star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 4px #fff;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: 0.25; } to { opacity: 1; } }
+.sky__celestial {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  left: 50%;
+  top: 30%;
+  transition: background 1.5s linear, box-shadow 1.5s linear,
+              left 1.5s linear, top 1.5s linear, opacity 1.5s linear;
+  pointer-events: none;
+}
+/* blend the sky into the page as you leave the hero */
+.l-hero::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 110px;
+  background: linear-gradient(to bottom, transparent, #ffffff);
+  z-index: 1;
+  pointer-events: none;
+}
+.l-hero__inner { position: relative; z-index: 2; }
+.l-hero .l-hero__text {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 22px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 10px 40px rgba(15,15,26,0.1);
+}
