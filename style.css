@@ -282,8 +282,10 @@ body {
   object-fit: cover;
   object-position: 50% 80%; /* crop more of the tree at the top so the boots show */
   transform: scale(1.22);   /* zoom in so the photo reads clearly */
+  transition: transform 0.4s ease;
   display: block;
 }
+.avatar-inner:hover .avatar-photo { transform: scale(1.32); }
 
 /* Dark hero avatar — glowing void-themed ring */
 .d-avatar {
@@ -308,10 +310,12 @@ body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  object-position: 50% 62%; /* crop out the tree top, show more of the boots */
-  transform: scale(1.05);
+  object-position: 50% 80%; /* match the light page: crop the tree, show the boots */
+  transform: scale(1.22);
+  transition: transform 0.4s ease;
   display: block;
 }
+.d-avatar:hover .d-avatar__photo { transform: scale(1.32); }
 @media (max-width: 600px) {
   .d-avatar { width: 220px; height: 220px; }
 }
