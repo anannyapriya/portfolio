@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎵 Music · Anannya P. Neog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%234338CA'/><text x='50' y='70' font-size='58' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>A</text></svg>" />
+</head>
+<body class="light-body">
+<nav class="l-nav l-nav--sub">
+  <a class="l-nav__logo" href="./index.html#about">APN</a>
+  <ul class="l-nav__links">
+    <li><a href="./index.html#about">About</a></li>
+    <li><a href="./index.html#education">Education</a></li>
+    <li><a href="./index.html#experience">Experience</a></li>
+    <li><a href="./projects-light.html">Projects</a></li>
+    <li><a href="./index.html#skills">Skills</a></li>
+    <li><a href="./index.html#hobbies">Hobbies</a></li>
+    <li><a href="./index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="subpage subpage--light">
+  <div class="subpage__inner">
+    <a href="./index.html#hobbies" class="subpage__back">← Back to portfolio</a>
+    <h1>🎵 Music</h1>
+    <p class="subpage__lead">Guitar, indie and electronic rabbit holes. Playlists and picks coming soon.</p>
+    <div class="subpage-gallery">
+      <div class="subpage-tile"><div class="subpage-tile__img l-proj-img--web">🎸</div><div class="subpage-tile__body"><h3>Coming soon</h3><p>A playlist will live here.</p></div></div>
+      <div class="subpage-tile"><div class="subpage-tile__img l-proj-img--sign">🎧</div><div class="subpage-tile__body"><h3>Coming soon</h3><p>A playlist will live here.</p></div></div>
+      <div class="subpage-tile"><div class="subpage-tile__img l-proj-img--fathom">🎹</div><div class="subpage-tile__body"><h3>Coming soon</h3><p>A playlist will live here.</p></div></div>
+    </div>
+  </div>
+</div>
+<button id="d-top-btn" class="d-top-btn" aria-label="Back to top"><img src="./assets/rocket.svg" alt="" /></button>
+<footer class="l-footer"><p>© Anannya P. Neog &nbsp;·&nbsp; Designed &amp; Built with care &nbsp;·&nbsp; 2026</p></footer>
+<script>
+  (function () {
+    var btn = document.getElementById('d-top-btn');
+    if (!btn) return;
+    function launchRocket() {
+      if (btn.dataset.launching) return;
+      btn.dataset.launching = '1';
+      btn.classList.add('launching');
+      var dur = 1900, t0 = performance.now(), sy = window.scrollY, fly = window.innerHeight + 180;
+      function frame(now) {
+        var t = Math.min(1, (now - t0) / dur);
+        var eo = 1 - Math.pow(1 - t, 3);
+        window.scrollTo(0, sy * (1 - eo));
+        var up = t * t;
+        btn.style.transform = 'translateY(' + (-up * fly) + 'px) rotate(' + (t * 6) + 'deg)';
+        if (t < 1) requestAnimationFrame(frame);
+        else { btn.classList.remove('launching', 'show'); btn.style.transform = ''; delete btn.dataset.launching; }
+      }
+      requestAnimationFrame(frame);
+    }
+    window.addEventListener('scroll', function () {
+      if (!btn.dataset.launching) btn.classList.toggle('show', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', launchRocket);
+  })();
+</script>
+</body>
+</html>
