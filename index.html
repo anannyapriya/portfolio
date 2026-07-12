@@ -853,7 +853,7 @@
     var host = canvas.parentElement;
     var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-    var stars = [], mw = [], shooters = [];
+    var stars = [], mw = [], nebula = [], shooters = [];
     var mx = 0, my = 0, tmx = 0, tmy = 0;               // parallax pointer (smoothed)
     function rndStar(band) {
       var dx, dy, dz;
@@ -872,7 +872,7 @@
         b: (band ? 0.16 : 0.45) + m * (band ? 0.16 : 0.55),
         tw: Math.random() * Math.PI * 2, ts: 0.6 + Math.random() * 2.4,
         rot: Math.random() * Math.PI * 2,
-        c: Math.random() < 0.15 ? (Math.random() < 0.5 ? '#cfe0ff' : '#ffe6cf') : '#ffffff' };
+        c: Math.random() < 0.32 ? (Math.random() < 0.5 ? '#bcd2ff' : '#ffdcc0') : '#ffffff' };
     }
     function starPath(x, y, outer, inner, rot) {         // 5-pointed star
       ctx.beginPath();
@@ -887,8 +887,22 @@
     function seed() {
       stars = [];
       for (var i = 0; i < 1500; i++) stars.push(rndStar(false));
-      for (var j = 0; j < 700; j++) stars.push(rndStar(true));   // Milky Way band
+      for (var j = 0; j < 900; j++) stars.push(rndStar(true));   // Milky Way band
       mw = [];
+      // Nebula clouds along the galactic band (soft glowing light + dust)
+      nebula = [];
+      for (var k = 0; k < 90; k++) {
+        var ph = Math.random() * Math.PI * 2;
+        var dy = (Math.random() - 0.5) * 0.42;
+        var rr = Math.sqrt(Math.max(0, 1 - dy * dy));
+        var kind = Math.random();
+        nebula.push({
+          dx: Math.cos(ph) * rr, dy: dy, dz: Math.sin(ph) * rr,
+          rad: 50 + Math.random() * 130,
+          b: 0.04 + Math.random() * 0.08,
+          c: kind < 0.32 ? '150,96,72' : (kind < 0.66 ? '86,116,178' : '176,190,224')
+        });
+      }
     }
     function resize() {
       W = host.clientWidth; H = host.clientHeight;
@@ -951,6 +965,31 @@
         var pit = 0.14 - my * 0.4;
         var cyw = Math.cos(yaw), syw = Math.sin(yaw), cpt = Math.cos(pit), spt = Math.sin(pit);
         var f = Math.min(W, H) * 0.95, cxp = W / 2, cyp = H * 0.42;
+
+        // Milky Way nebula — soft additive light clouds
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (var n = 0; n < nebula.length; n++) {
+          var nb = nebula[n];
+          var nx1 = nb.dx * cyw - nb.dz * syw;
+          var nz1 = nb.dx * syw + nb.dz * cyw;
+          var ny2 = nb.dy * cpt - nz1 * spt;
+          var nz2 = nb.dy * spt + nz1 * cpt;
+          if (nz2 <= 0.12) continue;
+          var ninv = 1 / nz2;
+          var nsx = cxp + nx1 * f * ninv, nsy = cyp + ny2 * f * ninv;
+          var nR = nb.rad * (0.4 + nz2 * 0.9);
+          var na = nb.b * vis * Math.min(1, (nz2 - 0.12) / 0.5);
+          if (na <= 0.005) continue;
+          var ng = ctx.createRadialGradient(nsx, nsy, 0, nsx, nsy, nR);
+          ng.addColorStop(0, 'rgba(' + nb.c + ',' + na + ')');
+          ng.addColorStop(0.5, 'rgba(' + nb.c + ',' + (na * 0.4) + ')');
+          ng.addColorStop(1, 'rgba(' + nb.c + ',0)');
+          ctx.fillStyle = ng;
+          ctx.beginPath(); ctx.arc(nsx, nsy, nR, 0, 6.283); ctx.fill();
+        }
+        ctx.restore();
+
         ctx.save();
         for (var i = 0; i < stars.length; i++) {
           var s = stars[i];
