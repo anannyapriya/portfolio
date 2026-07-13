@@ -1965,3 +1965,34 @@ button.d-proj-field {
 .cloud--5 { top: 70px;  width: 170px; height: 46px; opacity: 0.8;
   box-shadow: 50px 10px 0 -6px #fff, -46px 14px 0 -3px #fff, 92px 18px 0 -14px #fff;
   animation-duration: 104s; animation-delay: -72s; }
+
+/* ═══════════ CONTACT SECTION SKY (continuation of the hero sky) ═══════════ */
+.l-contact-sky { position: relative; overflow: hidden; }
+.sky--contact { position: absolute; inset: 0; z-index: 0; }
+/* ease in from the white page above */
+.l-contact-sky::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, #ffffff, rgba(255,255,255,0));
+  z-index: 1;
+  pointer-events: none;
+}
+.l-contact-sky .l-container { position: relative; z-index: 2; }
+.l-contact-sky .l-section__title {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 14px;
+  padding: 0.5rem 1.1rem;
+}
+.l-contact-sky .l-contact-info {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 18px;
+  padding: 1.6rem;
+}

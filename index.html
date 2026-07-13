@@ -364,7 +364,8 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="l-section l-section--alt">
+  <section id="contact" class="l-section l-section--alt l-contact-sky">
+    <div class="sky sky--contact"><canvas id="skyCanvas2"></canvas></div>
     <div class="l-container">
       <h2 class="l-section__title reveal">Get In Touch</h2>
       <div class="l-contact-grid">
@@ -862,6 +863,21 @@
     var host = canvas.parentElement;
     var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
 
+    // Second sky surface: the contact section (same sky, no sun/moon)
+    var canvas2 = document.getElementById('skyCanvas2');
+    var ctx2 = canvas2 ? canvas2.getContext('2d') : null;
+    var host2 = canvas2 ? canvas2.parentElement : null;
+    var W2 = 0, H2 = 0, stars2 = [];
+    if (canvas2) {
+      for (var s2i = 0; s2i < 260; s2i++) {
+        var m2 = Math.pow(Math.random(), 2.2);
+        stars2.push({ x: Math.random(), y: Math.random(),
+          r: 0.5 + m2 * 1.8, b: 0.4 + m2 * 0.6,
+          tw: Math.random() * Math.PI * 2, ts: 0.6 + Math.random() * 2.4,
+          c: Math.random() < 0.3 ? (Math.random() < 0.5 ? '#bcd2ff' : '#ffdcc0') : '#ffffff' });
+      }
+    }
+
     var stars = [], mw = [], nebula = [], clouds = [], shooters = [];
     var mx = 0, my = 0, tmx = 0, tmy = 0;               // parallax pointer (smoothed)
     function rndStar(band) {
@@ -898,6 +914,19 @@
       for (var i = 0; i < 1500; i++) stars.push(rndStar(false));
       for (var j = 0; j < 900; j++) stars.push(rndStar(true));   // Milky Way band
       mw = [];
+      // Daytime drifting clouds (fluffy puffs; fade out at night)
+      clouds = [];
+      for (var cq = 0; cq < 7; cq++) {
+        var puffs = [], np = 5 + Math.floor(Math.random() * 4);
+        for (var cp = 0; cp < np; cp++) {
+          puffs.push({ ox: (Math.random() - 0.5) * 2.0, oy: (Math.random() - 0.45) * 0.55, r: 0.45 + Math.random() * 0.75 });
+        }
+        clouds.push({
+          x: Math.random() * 1.4 - 0.2, y: 0.08 + Math.random() * 0.5,
+          s: 55 + Math.random() * 90, sp: 0.00018 + Math.random() * 0.00025,
+          o: 0.5 + Math.random() * 0.4, puffs: puffs
+        });
+      }
       // Nebula clouds along the galactic band (soft glowing light + dust)
       nebula = [];
       for (var k = 0; k < 90; k++) {
@@ -917,6 +946,11 @@
       W = host.clientWidth; H = host.clientHeight;
       canvas.width = W * DPR; canvas.height = H * DPR;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      if (canvas2) {
+        W2 = host2.clientWidth; H2 = host2.clientHeight;
+        canvas2.width = W2 * DPR; canvas2.height = H2 * DPR;
+        ctx2.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
     }
 
     var STOPS = [
@@ -1065,6 +1099,31 @@
         }
       }
 
+      // Daytime clouds drifting across the hero sky (fade away at night)
+      var dayF = 1 - vis;
+      var cloudA = 0.75 * dayF + 0.06;
+      if (cloudA > 0.08) {
+        var ccol = dayF > 0.45 ? '255,255,255' : '196,203,222';
+        for (var ci = 0; ci < clouds.length; ci++) {
+          var cl = clouds[ci];
+          cl.x += cl.sp;
+          if (cl.x > 1.4) cl.x = -0.4;
+          var bx = (cl.x + mx * 0.012) * W, by = cl.y * H, sc = cl.s;
+          ctx.globalAlpha = cl.o * cloudA;
+          for (var pi = 0; pi < cl.puffs.length; pi++) {
+            var pf = cl.puffs[pi];
+            var px2 = bx + pf.ox * sc, py2 = by + pf.oy * sc, pr = pf.r * sc;
+            var cg = ctx.createRadialGradient(px2, py2 - pr * 0.25, 0, px2, py2, pr);
+            cg.addColorStop(0, 'rgba(' + ccol + ',0.95)');
+            cg.addColorStop(0.55, 'rgba(' + ccol + ',0.55)');
+            cg.addColorStop(1, 'rgba(' + ccol + ',0)');
+            ctx.fillStyle = cg;
+            ctx.beginPath(); ctx.arc(px2, py2, pr, 0, 6.283); ctx.fill();
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+
       // Meteors / shooting stars (dusk & night)
       if (vis > 0.25 && Math.random() < 0.03 && shooters.length < 3) {
         var ang = 0.35 + Math.random() * 0.5, sp = 9 + Math.random() * 7;
@@ -1091,15 +1150,46 @@
         ctx.restore();
       }
 
+      // Contact-section sky: same gradient + the same 3D star dome
+      // (shared rotation + pointer look-around), no sun/moon
+      if (ctx2 && W2 > 0) {
+        var g2 = ctx2.createLinearGradient(0, 0, 0, H2);
+        g2.addColorStop(0, c[0]); g2.addColorStop(1, c[1]);
+        ctx2.fillStyle = g2; ctx2.fillRect(0, 0, W2, H2);
+        if (vis > 0.01) {
+          var yaw2 = tsec * 0.015 + mx * 0.6 + 2.1;   // offset view: a different patch of the same sky
+          var pit2 = 0.14 - my * 0.4;
+          var cy2 = Math.cos(yaw2), sy2 = Math.sin(yaw2), cp2 = Math.cos(pit2), sp2 = Math.sin(pit2);
+          var f2 = Math.min(W2, H2) * 0.95, cxp2 = W2 / 2, cyp2 = H2 * 0.45;
+          for (var i2 = 0; i2 < stars.length; i2++) {
+            var s3 = stars[i2];
+            var xa = s3.dx * cy2 - s3.dz * sy2;
+            var za = s3.dx * sy2 + s3.dz * cy2;
+            var yb = s3.dy * cp2 - za * sp2;
+            var zb = s3.dy * sp2 + za * cp2;
+            if (zb <= 0.06) continue;
+            var inv2 = 1 / zb;
+            var sx2 = cxp2 + xa * f2 * inv2, sy3 = cyp2 + yb * f2 * inv2;
+            if (sx2 < -30 || sx2 > W2 + 30 || sy3 < -30 || sy3 > H2 + 30) continue;
+            var edge2 = Math.min(1, (zb - 0.06) / 0.4);
+            var tw2 = 0.6 + 0.4 * Math.sin(tsec * s3.ts + s3.tw);
+            var size2 = s3.r * (0.5 + zb * 0.85);
+            ctx2.globalAlpha = s3.b * vis * tw2 * edge2;
+            ctx2.fillStyle = s3.c;
+            ctx2.beginPath(); ctx2.arc(sx2, sy3, size2, 0, 6.283); ctx2.fill();
+          }
+          ctx2.globalAlpha = 1;
+        }
+      }
+
       requestAnimationFrame(draw);
     }
 
     resize(); seed();
     window.addEventListener('resize', function () { resize(); });
     window.addEventListener('mousemove', function (e) {
-      var r = host.getBoundingClientRect();
-      tmx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - 0.5) * 2));
-      tmy = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - 0.5) * 2));
+      tmx = (e.clientX / window.innerWidth - 0.5) * 2;
+      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
     });
     requestAnimationFrame(draw);
   })();
