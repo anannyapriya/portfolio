@@ -1906,18 +1906,62 @@ button.d-proj-field {
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 110px;
-  background: linear-gradient(to bottom, transparent, #ffffff);
+  height: 200px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(255,255,255,0.15) 40%,
+    rgba(255,255,255,0.55) 70%,
+    rgba(255,255,255,0.9) 90%,
+    #ffffff 100%);
   z-index: 1;
   pointer-events: none;
 }
 .l-hero__inner { position: relative; z-index: 2; }
 .l-hero .l-hero__text {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 22px;
   padding: 2rem 2.25rem;
   box-shadow: 0 10px 40px rgba(15,15,26,0.1);
 }
+
+/* ═══════════ CLOUD TRANSITION BAND (hero sky → content) ═══════════ */
+.cloud-band {
+  position: relative;
+  height: 180px;
+  margin-top: -180px;      /* overlap the hero's bottom fade */
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cloud {
+  position: absolute;
+  left: 0;
+  background: #ffffff;
+  border-radius: 50%;
+  filter: blur(9px);
+  opacity: 0.9;
+  will-change: transform;
+  animation: cloudDrift linear infinite;
+}
+@keyframes cloudDrift {
+  from { transform: translateX(-45vw); }
+  to   { transform: translateX(145vw); }
+}
+.cloud--1 { top: 44px;  width: 150px; height: 42px; opacity: 0.85;
+  box-shadow: 44px 10px 0 -6px #fff, -40px 14px 0 -3px #fff, 80px 16px 0 -12px #fff;
+  animation-duration: 62s; animation-delay: -8s; }
+.cloud--2 { top: 96px;  width: 200px; height: 54px; opacity: 0.95;
+  box-shadow: 60px 12px 0 -8px #fff, -54px 16px 0 -4px #fff, 110px 20px 0 -16px #fff;
+  animation-duration: 78s; animation-delay: -34s; }
+.cloud--3 { top: 22px;  width: 120px; height: 34px; opacity: 0.7;
+  box-shadow: 34px 8px 0 -6px #fff, -32px 10px 0 -4px #fff;
+  animation-duration: 92s; animation-delay: -55s; }
+.cloud--4 { top: 120px; width: 240px; height: 60px; opacity: 0.98;
+  box-shadow: 70px 14px 0 -8px #fff, -64px 18px 0 -4px #fff, 130px 22px 0 -18px #fff;
+  animation-duration: 68s; animation-delay: -18s; }
+.cloud--5 { top: 70px;  width: 170px; height: 46px; opacity: 0.8;
+  box-shadow: 50px 10px 0 -6px #fff, -46px 14px 0 -3px #fff, 92px 18px 0 -14px #fff;
+  animation-duration: 104s; animation-delay: -72s; }

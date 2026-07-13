@@ -72,6 +72,15 @@
     </div>
   </section>
 
+  <!-- CLOUD TRANSITION (hero sky → content) -->
+  <div class="cloud-band" aria-hidden="true">
+    <span class="cloud cloud--1"></span>
+    <span class="cloud cloud--2"></span>
+    <span class="cloud cloud--3"></span>
+    <span class="cloud cloud--4"></span>
+    <span class="cloud cloud--5"></span>
+  </div>
+
   <!-- ABOUT ME -->
   <section id="about-me" class="l-section">
     <div class="l-container">
@@ -853,7 +862,7 @@
     var host = canvas.parentElement;
     var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-    var stars = [], mw = [], nebula = [], shooters = [];
+    var stars = [], mw = [], nebula = [], clouds = [], shooters = [];
     var mx = 0, my = 0, tmx = 0, tmy = 0;               // parallax pointer (smoothed)
     function rndStar(band) {
       var dx, dy, dz;
