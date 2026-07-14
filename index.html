@@ -1194,29 +1194,38 @@
     requestAnimationFrame(draw);
   })();
 
-  /* Generative screen scribbles (p5.js-style): at random moments a jittery,
-     RGB-split scribble stroke + glitch tears get drawn at a random spot on a
-     full-screen transparent canvas, then flicker away. pointer-events: none,
+  /* Generative glitch storm (patches of corrupted blocks teasing the Void).
+     Guardrails: honours prefers-reduced-motion, renders at 1x pixel density,
+     and uses a single shared render loop. pointer-events: none throughout,
      so the page itself is never affected. */
   (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     var pageLight = document.getElementById('page-light');
     var cv = document.createElement('canvas');
     cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:95;display:none;';
     document.body.appendChild(cv);
     var g = cv.getContext('2d');
-    var DPR = Math.min(window.devicePixelRatio || 1, 2);
-    function size() { cv.width = innerWidth * DPR; cv.height = innerHeight * DPR; }
+    function size() { cv.width = innerWidth; cv.height = innerHeight; }  // 1x density
     size();
     window.addEventListener('resize', size);
 
-    // Build a generative glitch patch: a cluster of corrupted-looking blocks
-    // around a random point, like a small piece of the screen datamoshing
+    var COLS = ['rgba(10,15,40,0.85)', 'rgba(139,92,246,0.75)', 'rgba(59,130,246,0.7)', 'rgba(5,5,16,0.9)'];
+    var patches = [];
+    var running = false;
+
+    var born = performance.now();
+    function intensity() {
+      var stay = (performance.now() - born) / 1000;
+      return Math.min(1, Math.max(0, (stay - 12) / 80));  // calm for ~12s, full storm by ~1.5 min
+    }
+
     function makePatch(k) {
       k = k || 0;
       var cx = innerWidth * (0.03 + Math.random() * 0.94);
       var cy = innerHeight * (0.05 + Math.random() * 0.9);
       var blocks = [];
-      var n = 8 + (Math.random() * 9 | 0) + Math.round(k * 28);
+      var n = 8 + (Math.random() * 9 | 0) + Math.round(k * 12);
       var spreadX = 190 + k * (innerWidth * 0.55), spreadY = 110 + k * (innerHeight * 0.45);
       for (var i = 0; i < n; i++) {
         // at full storm, blocks scatter over the ENTIRE viewport instead of clustering
@@ -1227,99 +1236,85 @@
           y: cly * (1 - k) + Math.random() * innerHeight * k,
           w: 18 + Math.random() * (90 + k * 240),
           h: 4 + Math.random() * (22 + k * 22),
-          c: [(Math.random() * 4) | 0],                 // colour index
-          ph: Math.random() * Math.PI * 2,              // flicker phase
-          fs: 6 + Math.random() * 14                    // flicker speed
+          c: (Math.random() * 4) | 0,
+          ph: Math.random() * Math.PI * 2,
+          fs: 6 + Math.random() * 14
         });
       }
-      return { cx: cx, cy: cy, blocks: blocks };
+      return { cx: cx, cy: cy, blocks: blocks, t0: performance.now(), dur: 950 };
     }
 
-    var COLS = ['rgba(10,15,40,0.85)', 'rgba(139,92,246,0.75)', 'rgba(59,130,246,0.7)', 'rgba(5,5,16,0.9)'];
-
-    var active = 0;
-    function scribble() {
-      if (pageLight.classList.contains('hidden')) return;
-      if (active > 28) return;                       // perf cap at full storm
-      var P = makePatch(intensity());
-      var t0 = performance.now(), DUR = 1150;
-      active++;
-      cv.style.display = 'block';
-      function frame(now) {
-        var t = (now - t0) / DUR;
-        if (t >= 1) {
-          active--;
-          if (active <= 0) { g.clearRect(0, 0, cv.width, cv.height); cv.style.display = 'none'; }
-          return;
-        }
-        g.clearRect(0, 0, cv.width, cv.height);
+    function renderAll(now) {
+      g.clearRect(0, 0, cv.width, cv.height);
+      var tsec = now / 1000;
+      for (var p = patches.length - 1; p >= 0; p--) {
+        var P = patches[p];
+        var t = (now - P.t0) / P.dur;
+        if (t >= 1) { patches.splice(p, 1); continue; }
         var fade = t < 0.12 ? t / 0.12 : (t > 0.72 ? (1 - t) / 0.28 : 1);
-        var tsec = now / 1000;
 
         for (var i = 0; i < P.blocks.length; i++) {
           var b = P.blocks[i];
-          // blocks flicker on/off like corrupted pixels
-          if (Math.sin(tsec * b.fs + b.ph) < -0.25) continue;
+          if (Math.sin(tsec * b.fs + b.ph) < -0.25) continue;   // flicker off
           var jx = (Math.random() - 0.5) * 3, jy = (Math.random() - 0.5) * 2;
 
-          // RGB fringes on either side of the block
-          g.globalAlpha = 0.45 * fade;
+          g.globalAlpha = 0.45 * fade;                          // RGB fringes
           g.fillStyle = 'rgba(236,72,153,0.8)';
-          g.fillRect((b.x + jx - 4) * DPR, (b.y + jy) * DPR, b.w * DPR, b.h * DPR);
+          g.fillRect(b.x + jx - 4, b.y + jy, b.w, b.h);
           g.fillStyle = 'rgba(6,182,212,0.8)';
-          g.fillRect((b.x + jx + 4) * DPR, (b.y + jy) * DPR, b.w * DPR, b.h * DPR);
+          g.fillRect(b.x + jx + 4, b.y + jy, b.w, b.h);
 
-          // the block itself
-          g.globalAlpha = 0.85 * fade;
+          g.globalAlpha = 0.85 * fade;                          // the block
           g.fillStyle = COLS[b.c];
-          g.fillRect((b.x + jx) * DPR, (b.y + jy) * DPR, b.w * DPR, b.h * DPR);
+          g.fillRect(b.x + jx, b.y + jy, b.w, b.h);
 
-          // scanlines inside the block
-          g.globalAlpha = 0.3 * fade;
+          g.globalAlpha = 0.3 * fade;                           // scanlines
           g.fillStyle = '#ffffff';
-          for (var s = 2; s < b.h; s += 4) {
-            g.fillRect((b.x + jx) * DPR, (b.y + jy + s) * DPR, b.w * DPR, 1 * DPR);
-          }
+          for (var sl = 2; sl < b.h; sl += 4) g.fillRect(b.x + jx, b.y + jy + sl, b.w, 1);
         }
 
-        // an occasional wide tear line through the patch
-        if (Math.random() < 0.35) {
+        if (Math.random() < 0.35) {                             // occasional tear line
           g.globalAlpha = 0.4 * fade;
           g.fillStyle = 'rgba(139,92,246,0.7)';
-          g.fillRect((P.cx - 160) * DPR, (P.cy + (Math.random() - 0.5) * 90) * DPR, 320 * DPR, 1.5 * DPR);
+          g.fillRect(P.cx - 160, P.cy + (Math.random() - 0.5) * 90, 320, 1.5);
         }
-        g.globalAlpha = 1;
-        requestAnimationFrame(frame);
       }
-      requestAnimationFrame(frame);
+      g.globalAlpha = 1;
+      if (patches.length) {
+        requestAnimationFrame(renderAll);
+      } else {
+        running = false;
+        g.clearRect(0, 0, cv.width, cv.height);
+        cv.style.display = 'none';
+      }
     }
 
-    // Escalating storm: the longer the visitor stays on the white page, the
-    // more the void bleeds through — until reading here gets uncomfortable
-    // and the Void page beckons. (Never blocks clicks or scrolling.)
-    var born = performance.now();
-    function intensity() {
-      var stay = (performance.now() - born) / 1000;
-      return Math.min(1, Math.max(0, (stay - 8) / 50));   // calm for ~8s, full storm by ~1 min
+    function scribble() {
+      if (pageLight.classList.contains('hidden')) return;
+      if (patches.length > 10) return;                          // perf cap at full storm
+      patches.push(makePatch(intensity()));
+      if (!running) {
+        running = true;
+        cv.style.display = 'block';
+        requestAnimationFrame(renderAll);
+      }
     }
 
     (function loop() {
       var k = intensity();
       setTimeout(function () {
         if (!pageLight.classList.contains('hidden')) {
-          var burst = 1 + Math.round(k * k * 20);         // 1 patch early → ~21 at full storm
-          for (var i = 0; i < burst; i++) {
-            setTimeout(scribble, i * (120 - k * 80));
-          }
+          var burst = 1 + Math.round(k * k * 6);                // 1 patch early -> ~7 at full storm
+          for (var i = 0; i < burst; i++) setTimeout(scribble, i * (120 - k * 80));
         }
         loop();
-      }, (3500 + Math.random() * 6000) * (1 - k * 0.82)); // gaps shrink from ~6s to ~1s
+      }, (4500 + Math.random() * 7000) * (1 - k * 0.6));        // gaps shrink from ~8s to ~3s
     })();
 
     // dev hook: ?glitchtest=1 previews the full storm immediately
     if (location.search.indexOf('glitchtest') !== -1) {
-      born = performance.now() - 70000;                    // pretend a long stay
-      for (var d = 0; d < 24; d++) setTimeout(scribble, 400 + d * 45);
+      born = performance.now() - 200000;                        // pretend a long stay
+      for (var d = 0; d < 8; d++) setTimeout(scribble, 400 + d * 120);
     }
   })();
 
