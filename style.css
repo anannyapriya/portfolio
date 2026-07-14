@@ -67,9 +67,10 @@ body {
   align-items: center;
   padding: 0 2.5rem;
   height: 68px;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.22);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--l-border);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.35);
   transition: box-shadow 0.3s;
 }
 .l-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
@@ -550,7 +551,7 @@ body {
 }
 
 /* Ensure content is above canvas */
-#page-dark > *:not(#particles-canvas):not(.d-bg-gradient) {
+#page-dark > *:not(#particles-canvas):not(.d-bg-gradient):not(.d-nav):not(.d-top-btn) {
   position: relative;
   z-index: 1;
 }
@@ -564,9 +565,10 @@ body {
   align-items: center;
   padding: 0 2.5rem;
   height: 68px;
-  background: rgba(5,5,16,0.75);
+  background: rgba(5,5,16,0.22);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
 .d-nav__logo {
@@ -681,7 +683,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 7rem 0 2rem;
+  padding: 13.5rem 0 2rem;
   text-align: center;
   position: relative;
 }
@@ -2015,4 +2017,52 @@ button.d-proj-field {
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.3);
   color: var(--l-text);
+}
+
+/* ═══════════ AVATAR AUDIO VISUALIZER (void hero) ═══════════ */
+.d-avatar--hero {
+  background: none;                     /* visualizer replaces the plain ring */
+  overflow: visible;
+}
+.d-visualizer {
+  position: absolute;
+  left: -52px;
+  top: -52px;
+  width: calc(100% + 104px);
+  height: calc(100% + 104px);
+  display: block;
+  pointer-events: none;
+  transition: transform 0.45s ease;
+  z-index: 0;
+}
+/* hover zoom is handled in JS: bars grow outward from an anchored inner
+   radius, so the ring never separates from the photo's edge */
+.d-avatar--hero .d-avatar__frame { position: relative; z-index: 1; }
+
+.d-listen-pop {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translate(-50%, 8px);
+  white-space: nowrap;
+  padding: 0.6rem 1.1rem;
+  border-radius: 99px;
+  background: rgba(10,10,25,0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(139,92,246,0.5);
+  box-shadow: 0 0 18px var(--d-glow-p);
+  color: var(--d-text);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 3;
+}
+.d-listen-pop:hover { border-color: var(--d-pink); color: #fff; }
+.d-avatar--hero:hover .d-listen-pop {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
 }

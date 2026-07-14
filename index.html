@@ -451,10 +451,12 @@
           <a href="#d-projects" class="d-btn-primary">Explore My Universe</a>
         </div>
       </div>
-      <div class="d-avatar d-avatar--hero">
+      <div class="d-avatar d-avatar--hero" id="dAvatar">
+        <canvas class="d-visualizer" id="dVisualizer"></canvas>
         <div class="d-avatar__frame">
           <img src="./assets/anannya.jpg" alt="Anannya P. Neog" class="d-avatar__photo" />
         </div>
+        <a class="d-listen-pop" href="https://open.spotify.com/playlist/[your-playlist]" target="_blank">🎧 Check out what I'm listening now!</a>
       </div>
     </div>
     <div class="d-scroll-hint">
@@ -1320,6 +1322,113 @@
       born = performance.now() - 200000;                        // pretend a long stay
       for (var d = 0; d < 6; d++) setTimeout(scribble, 400 + d * 150);
     }
+  })();
+
+  /* Avatar audio visualizer (void hero): live-style pulsing bars around the
+     photo, as if reacting to music playing right now. */
+  (function () {
+    var cv = document.getElementById('dVisualizer');
+    var pageDark = document.getElementById('page-dark');
+    if (!cv || !pageDark) return;
+    var g = cv.getContext('2d');
+    var N = 160, bars = [];
+    var boost = 0, boostTarget = 0;               // hover: bars swell outward
+    var avatar = document.getElementById('dAvatar');
+    if (avatar) {
+      avatar.addEventListener('mouseenter', function () { boostTarget = 1; });
+      avatar.addEventListener('mouseleave', function () { boostTarget = 0; });
+    }
+
+    // Stardust trail + cursor tracking for the local ring bulge
+    var dust = [];
+    var mouseX = -9999, mouseY = -9999;
+    window.addEventListener('mousemove', function (e) {
+      if (pageDark.classList.contains('hidden')) return;
+      var r = cv.getBoundingClientRect();
+      if (!r.width) return;
+      var x = e.clientX - r.left, y = e.clientY - r.top;
+      mouseX = x; mouseY = y;                                   // for the local bulge
+      if (dust.length > 110) return;
+      var dx = x - r.width / 2, dy = y - r.height / 2;
+      if (Math.sqrt(dx * dx + dy * dy) > r.width / 2) return;   // only around the visualizer
+      for (var d = 0; d < 2; d++) {
+        dust.push({
+          x: x + (Math.random() - 0.5) * 6, y: y + (Math.random() - 0.5) * 6,
+          vx: (Math.random() - 0.5) * 0.7, vy: (Math.random() - 0.5) * 0.7 - 0.15,
+          life: 1, decay: 0.012 + Math.random() * 0.02,
+          r: 0.6 + Math.random() * 1.6,
+          c: ['#ffffff', '#e6d9ff', '#ffd9ec', '#cfe0ff'][(Math.random() * 4) | 0]
+        });
+      }
+    });
+    for (var i = 0; i < N; i++) {
+      bars.push({ v: 0.3, ph: Math.random() * 6.283, s1: 1.6 + Math.random() * 2.2, s2: 3 + Math.random() * 4 });
+    }
+    function mix(a, b, t) {
+      return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t];
+    }
+    var PAL = [[139,92,246],[59,130,246],[236,72,153],[139,92,246]];  // purple-blue-pink loop
+    function colorAt(f) {
+      var x = f * (PAL.length - 1), i = Math.min(PAL.length - 2, x | 0);
+      var c = mix(PAL[i], PAL[i + 1], x - i);
+      return 'rgb(' + (c[0]|0) + ',' + (c[1]|0) + ',' + (c[2]|0) + ')';
+    }
+    function frame(now) {
+      requestAnimationFrame(frame);
+      if (pageDark.classList.contains('hidden')) return;      // idle when not on the void
+      var w = cv.clientWidth, h = cv.clientHeight;
+      if (!w) return;
+      if (cv.width !== w) { cv.width = w; cv.height = h; }
+      g.clearRect(0, 0, w, h);
+      var cx = w / 2, cy = h / 2;
+      var R0 = Math.min(w, h) / 2 - 46;                       // bars start just outside the photo
+      var t = now / 1000;
+      var beat = Math.pow(Math.abs(Math.sin(t * 2.2)), 6);    // periodic "kick"
+      boost += (boostTarget - boost) * 0.08;
+
+      // local bulge: bars near the cursor swell, following it around the ring
+      var mdx = mouseX - cx, mdy = mouseY - cy;
+      var mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+      var mAng = Math.atan2(mdy, mdx);
+      var radFall = Math.exp(-Math.pow(mDist - (R0 + 14), 2) / (2 * 62 * 62));
+      for (var i = 0; i < N; i++) {
+        var b = bars[i];
+        var target = 0.2
+          + 0.32 * Math.abs(Math.sin(t * b.s1 + b.ph))
+          + 0.22 * Math.abs(Math.sin(t * b.s2 + b.ph * 2))
+          + 0.35 * beat * Math.random();
+        b.v += (Math.min(1, target) - b.v) * 0.18;            // smooth like a real analyser
+        var ang = (i / N) * 6.283 - 1.5708;
+        var dAng = Math.abs(ang - mAng);
+        if (dAng > 3.1416) dAng = 6.283 - dAng;
+        var local = radFall * Math.exp(-dAng * dAng / (2 * 0.3 * 0.3));
+        var len = (7 + b.v * 30) * (1 + boost * 0.45 + local * 0.9);
+        var x1 = cx + Math.cos(ang) * R0, y1 = cy + Math.sin(ang) * R0;
+        var x2 = cx + Math.cos(ang) * (R0 + len), y2 = cy + Math.sin(ang) * (R0 + len);
+        g.strokeStyle = colorAt(i / N);
+        g.globalAlpha = Math.min(1, 0.55 + b.v * 0.45 + local * 0.4);
+        g.lineWidth = 3;
+        g.lineCap = 'round';
+        g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke();
+      }
+      // stardust left behind by the cursor
+      for (var q = dust.length - 1; q >= 0; q--) {
+        var p = dust[q];
+        p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+        if (p.life <= 0) { dust.splice(q, 1); continue; }
+        var tw2 = 0.55 + 0.45 * Math.sin(t * 9 + q);
+        g.globalAlpha = p.life * tw2;
+        g.fillStyle = p.c;
+        g.beginPath(); g.arc(p.x, p.y, p.r, 0, 6.283); g.fill();
+        if (p.r > 1.6) {                                   // sparkle cross on big grains
+          g.globalAlpha = p.life * tw2 * 0.6;
+          g.fillRect(p.x - p.r * 2.6, p.y - 0.4, p.r * 5.2, 0.8);
+          g.fillRect(p.x - 0.4, p.y - p.r * 2.6, 0.8, p.r * 5.2);
+        }
+      }
+      g.globalAlpha = 1;
+    }
+    requestAnimationFrame(frame);
   })();
 
   (function () {
