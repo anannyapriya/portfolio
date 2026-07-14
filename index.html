@@ -1225,7 +1225,11 @@
       var cx = innerWidth * (0.03 + Math.random() * 0.94);
       var cy = innerHeight * (0.05 + Math.random() * 0.9);
       var blocks = [];
-      var n = 8 + (Math.random() * 9 | 0) + Math.round(k * 12);
+      // blocks per patch: ~30s -> 7-10, ~60s -> 10-14, peak -> 15-19
+      var bonus = k <= 0.225 ? Math.round(k * 8.9)
+                : (k <= 0.6 ? Math.round(2 + (k - 0.225) * 8)
+                            : Math.round(5 + (k - 0.6) * 12.5));
+      var n = 5 + (Math.random() * (4 + Math.round(k)) | 0) + bonus;
       var spreadX = 190 + k * (innerWidth * 0.55), spreadY = 110 + k * (innerHeight * 0.45);
       for (var i = 0; i < n; i++) {
         // at full storm, blocks scatter over the ENTIRE viewport instead of clustering
@@ -1291,7 +1295,7 @@
 
     function scribble() {
       if (pageLight.classList.contains('hidden')) return;
-      if (patches.length > 10) return;                          // perf cap at full storm
+      if (patches.length > 7) return;                           // perf cap at full storm
       patches.push(makePatch(intensity()));
       if (!running) {
         running = true;
@@ -1304,17 +1308,17 @@
       var k = intensity();
       setTimeout(function () {
         if (!pageLight.classList.contains('hidden')) {
-          var burst = 1 + Math.round(k * k * 6);                // 1 patch early -> ~7 at full storm
+          var burst = 1 + Math.round(k * k * 4);                // 1 patch early -> ~5 at full storm
           for (var i = 0; i < burst; i++) setTimeout(scribble, i * (120 - k * 80));
         }
         loop();
-      }, (4500 + Math.random() * 7000) * (1 - k * 0.6));        // gaps shrink from ~8s to ~3s
+      }, (6000 + Math.random() * 9000) * (1 - k * 0.6));        // gaps shrink from ~10s to ~4s
     })();
 
     // dev hook: ?glitchtest=1 previews the full storm immediately
     if (location.search.indexOf('glitchtest') !== -1) {
       born = performance.now() - 200000;                        // pretend a long stay
-      for (var d = 0; d < 8; d++) setTimeout(scribble, 400 + d * 120);
+      for (var d = 0; d < 6; d++) setTimeout(scribble, 400 + d * 150);
     }
   })();
 
