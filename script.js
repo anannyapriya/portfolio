@@ -148,6 +148,8 @@ function openDarkFromHash() {
 ════════════════════════════════════════════════ */
 const pCanvas = document.getElementById('particles-canvas');
 const pCtx    = pCanvas.getContext('2d');
+
+
 let   pRaf    = null;
 let   particles = [];
 let   constellationPhase = 0; // drives the traveling glow along connection lines
