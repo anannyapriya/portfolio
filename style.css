@@ -2066,3 +2066,53 @@ button.d-proj-field {
   transform: translate(-50%, 0);
   pointer-events: auto;
 }
+
+/* ═══════════ NIGHT MODE (sky-synced text colours on the light page) ═══════════ */
+/* Smooth cross-fade for everything that flips at dusk */
+.l-nav, .l-nav__logo, .l-nav__links a, .l-nav__resume,
+.l-hero__text, .l-hero__greeting, .l-hero__name, .l-hero__role, .l-hero__bio,
+.btn-secondary, .l-contact-sky .l-section__title, .l-contact-sky .l-contact-info,
+.l-contact-info .l-contact__sub, .l-contact-reach, .l-contact-list li,
+.l-contact-list a, .l-contact-info .l-socials a, .l-footer--sky p {
+  transition: color 0.8s, background-color 0.8s, border-color 0.8s, box-shadow 0.8s;
+}
+
+/* Header */
+#page-light.night .l-nav { background: rgba(8,10,26,0.35); border-bottom-color: rgba(255,255,255,0.12); }
+#page-light.night .l-nav__logo { color: #EAF0FF; }
+#page-light.night .l-nav__links a { color: #B8C4E0; }
+#page-light.night .l-nav__links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+#page-light.night .l-nav__resume { color: #EAF0FF !important; border-color: rgba(255,255,255,0.3) !important; }
+#page-light.night .l-nav__dark-btn { background: #EAF0FF; color: #0F0F1A; }
+#page-light.night .l-hamburger span { background: #EAF0FF; }
+
+/* Hero */
+#page-light.night .l-hero__text { background: rgba(8,10,26,0.42); border-color: rgba(255,255,255,0.16); }
+#page-light.night .l-hero__greeting { color: #A5B4FC; }
+#page-light.night .l-hero__name { color: #EAF0FF; }
+#page-light.night .l-hero__role,
+#page-light.night .l-hero__bio { color: #B8C4E0; }
+#page-light.night .btn-secondary { color: #EAF0FF; border-color: rgba(255,255,255,0.35); }
+#page-light.night .btn-secondary:hover { color: #fff; border-color: #A5B4FC; }
+
+/* Contact section (shares the sky) */
+#page-light.night .l-contact-sky .l-section__title {
+  color: #EAF0FF;
+  background: rgba(8,10,26,0.42);
+  border-color: rgba(255,255,255,0.16);
+}
+#page-light.night .l-contact-sky .l-contact-info { background: rgba(8,10,26,0.42); border-color: rgba(255,255,255,0.16); }
+#page-light.night .l-contact-info .l-contact__sub,
+#page-light.night .l-contact-reach { color: #B8C4E0; }
+#page-light.night .l-contact-list li,
+#page-light.night .l-contact-list a { color: #EAF0FF; }
+#page-light.night .l-contact-list a:hover { color: #A5B4FC; }
+#page-light.night .l-contact-info .l-socials a { color: #B8C4E0; border-color: rgba(255,255,255,0.25); }
+#page-light.night .l-contact-info .l-socials a:hover { color: #fff; border-color: #A5B4FC; background: rgba(255,255,255,0.06); }
+
+/* Footer pill on the sky */
+#page-light.night .l-footer--sky p {
+  background: rgba(8,10,26,0.45);
+  border-color: rgba(255,255,255,0.16);
+  color: #EAF0FF;
+}
