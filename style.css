@@ -2116,3 +2116,98 @@ button.d-proj-field {
   border-color: rgba(255,255,255,0.16);
   color: #EAF0FF;
 }
+
+/* ═══════════ EDUCATION COURSE LISTS + WE JUSTIFICATION ═══════════ */
+.l-course-list, .d-course-list {
+  margin: 0.35rem 0 1rem;
+  padding-left: 1.15rem;
+  columns: 2;
+  column-gap: 1.6rem;
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+.l-course-list li { color: var(--l-muted); break-inside: avoid; }
+.d-course-list li { color: var(--d-muted); break-inside: avoid; }
+@media (max-width: 640px) { .l-course-list, .d-course-list { columns: 1; } }
+
+/* justify the Work Experience copy on both pages */
+.l-exp-bullets li { text-align: justify; }
+.d-timeline__body > p { text-align: justify; }
+
+/* ═══════════ CONTENT POLISH ROUND ═══════════ */
+
+/* Justify the hero bios on both pages */
+.l-hero__bio { text-align: justify; }
+.d-hero__bio { text-align: justify; }
+
+/* Inline institution / grad-cap / organisation icons (GitHub-icon style) */
+.l-edu-place, .d-edu-place {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+.l-edu-place svg { width: 16px; height: 16px; color: var(--l-accent); flex: none; }
+.d-edu-place { color: var(--d-muted) !important; font-size: 0.9rem; }
+.d-edu-place svg { width: 16px; height: 16px; color: var(--d-purple); flex: none; }
+.l-exp-icon svg, .d-exp-icon svg {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+  margin-right: 0.15rem;
+}
+.l-exp-icon svg { color: var(--l-accent); }
+.d-exp-icon svg { color: var(--d-purple); }
+
+/* Justify the Work Experience copy (light page) */
+.l-timeline2__body p, .l-timeline2__body li { text-align: justify; }
+.l-exp-org { text-align: left !important; }
+
+/* Force-justify the Work Experience copy (light page) */
+#experience .l-exp-bullets li,
+#experience .l-timeline2__body p {
+  text-align: justify !important;
+  text-justify: inter-word;
+}
+#experience .l-exp-org { text-align: left !important; }
+
+/* Iridescent oil-film tiles — overlapping colour blobs drift and shift hue
+   like light on an oil drop. Painted on a ::before layer beneath the content
+   so text and images stay crisp. Uniform across project & hobby tiles. */
+.l-project-card,
+.l-hobby,
+.subpage--light .subpage-tile {
+  position: relative;
+  background: #ffffff;
+  border-color: rgba(150,140,220,0.4);
+  box-shadow: 0 8px 26px rgba(130,120,200,0.12);
+  overflow: hidden;
+}
+/* playcard shape + glass-bubble rim: bright inner highlights hugging the
+   corners/edges, like light on the skin of a glass bubble */
+.l-project-card {
+  border-radius: 22px;
+  clip-path: inset(0 round 22px);   /* clips the blurred liquid layer too */
+  border: 1px solid rgba(150,140,220,0.35);
+  box-shadow: 0 12px 30px rgba(130,120,200,0.14);
+}
+
+
+/* Project tiles: clean playcard look (liquid/blob experiment removed) */
+.l-project-card {
+  background: linear-gradient(170deg, #ffffff 0%, #f3f2fc 100%);
+  border-radius: 22px;
+  border: 1px solid rgba(150,140,220,0.35);
+  box-shadow: 0 12px 30px rgba(130,120,200,0.14);
+}
+.l-project-card:hover { border-color: var(--l-accent); }
+
+/* Hobby + sub-page tiles: clean playcard look to match the project tiles */
+.l-hobby,
+.subpage--light .subpage-tile {
+  background: linear-gradient(170deg, #ffffff 0%, #f3f2fc 100%);
+  border-radius: 22px;
+  border: 1px solid rgba(150,140,220,0.35);
+  box-shadow: 0 12px 30px rgba(130,120,200,0.12);
+}
+.l-hobby:hover { border-color: var(--l-accent); }
