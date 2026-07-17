@@ -1696,7 +1696,7 @@ button.d-proj-field {
 .l-bar__fill { height: 100%; background: linear-gradient(90deg, var(--l-accent), #818CF8); border-radius: 4px; }
 
 /* Experience — single-column timeline with dots */
-.l-timeline2 { position: relative; padding-left: 2rem; max-width: 820px; }
+.l-timeline2 { position: relative; padding-left: 2rem; }
 .l-timeline2::before {
   content: '';
   position: absolute;
@@ -2130,8 +2130,8 @@ button.d-proj-field {
 .d-course-list li { color: var(--d-muted); break-inside: avoid; }
 @media (max-width: 640px) { .l-course-list, .d-course-list { columns: 1; } }
 
-/* justify the Work Experience copy on both pages */
-.l-exp-bullets li { text-align: justify; }
+/* justify the Work Experience copy (Void page only; the light page's
+   bullets stay left-aligned so words don't get stretched apart) */
 .d-timeline__body > p { text-align: justify; }
 
 /* ═══════════ CONTENT POLISH ROUND ═══════════ */
@@ -2159,17 +2159,7 @@ button.d-proj-field {
 .l-exp-icon svg { color: var(--l-accent); }
 .d-exp-icon svg { color: var(--d-purple); }
 
-/* Justify the Work Experience copy (light page) */
-.l-timeline2__body p, .l-timeline2__body li { text-align: justify; }
-.l-exp-org { text-align: left !important; }
 
-/* Force-justify the Work Experience copy (light page) */
-#experience .l-exp-bullets li,
-#experience .l-timeline2__body p {
-  text-align: justify !important;
-  text-justify: inter-word;
-}
-#experience .l-exp-org { text-align: left !important; }
 
 /* Iridescent oil-film tiles — overlapping colour blobs drift and shift hue
    like light on an oil drop. Painted on a ::before layer beneath the content
