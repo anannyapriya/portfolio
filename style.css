@@ -1732,6 +1732,8 @@ button.d-proj-field {
   overflow: hidden;
 }
 .l-proj-img svg { width: 62%; height: 68%; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
+.l-proj-img { position: relative; cursor: pointer; }
+.l-proj-img-link { position: absolute; inset: 0; z-index: 3; }
 .l-proj-img--audio  { background: linear-gradient(135deg, #6366F1, #8B5CF6); }
 .l-proj-img--piano  { background: linear-gradient(135deg, #06B6D4, #3B82F6); }
 .l-proj-img--sign   { background: linear-gradient(135deg, #EC4899, #8B5CF6); }
@@ -2172,14 +2174,6 @@ button.d-proj-field {
   border-color: rgba(150,140,220,0.4);
   box-shadow: 0 8px 26px rgba(130,120,200,0.12);
   overflow: hidden;
-}
-/* playcard shape + glass-bubble rim: bright inner highlights hugging the
-   corners/edges, like light on the skin of a glass bubble */
-.l-project-card {
-  border-radius: 22px;
-  clip-path: inset(0 round 22px);   /* clips the blurred liquid layer too */
-  border: 1px solid rgba(150,140,220,0.35);
-  box-shadow: 0 12px 30px rgba(130,120,200,0.14);
 }
 
 
