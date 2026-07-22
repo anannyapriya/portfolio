@@ -1530,5 +1530,65 @@
   })();
 </script>
 <script data-goatcounter="https://anannyapriya.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+  /* Private eye-icon view counter — visible only to the owner. Unlocks via
+     a secret ?owner= URL parameter or by typing "eye" anywhere on the page.
+     Nothing here is visible or discoverable by a normal visitor. */
+  (function () {
+    var SECRET = 'apn-eye-7f3q2x';
+    var KEY = '__apnEyeUnlocked';
+    var unlocked = sessionStorage.getItem(KEY) === '1';
+
+    try {
+      var params = new URLSearchParams(location.search);
+      if (params.get('owner') === SECRET) {
+        unlocked = true;
+        sessionStorage.setItem(KEY, '1');
+      }
+    } catch (e) {}
+
+    var typed = '';
+    document.addEventListener('keydown', function (e) {
+      if (!e.key || e.key.length !== 1) return;
+      typed = (typed + e.key).slice(-3).toLowerCase();
+      if (typed === 'eye' && !unlocked) {
+        unlocked = true;
+        sessionStorage.setItem(KEY, '1');
+        showBadge();
+      }
+    });
+
+    function showBadge() {
+      if (document.getElementById('apnEyeBadge')) return;
+      var b = document.createElement('div');
+      b.id = 'apnEyeBadge';
+      b.style.cssText = 'position:fixed;bottom:1.25rem;left:1.25rem;z-index:99999;' +
+        'background:rgba(10,10,25,0.86);color:#fff;font-family:monospace;font-size:0.78rem;' +
+        'padding:0.5rem 0.9rem;border-radius:99px;display:flex;align-items:center;gap:0.45rem;' +
+        'backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);' +
+        'border:1px solid rgba(139,92,246,0.45);box-shadow:0 4px 18px rgba(0,0,0,0.35);' +
+        'pointer-events:none;user-select:none;';
+      b.innerHTML = '<span style="font-size:1rem">\uD83D\uDC41\uFE0F</span><span id="apnEyeCount">\u2026</span>';
+      document.body.appendChild(b);
+      fetch('https://anannyapriya.goatcounter.com/counter/TOTAL.json')
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          var n = d.count_unique || d.count || '?';
+          document.getElementById('apnEyeCount').textContent = n + ' views';
+        })
+        .catch(function () {
+          document.getElementById('apnEyeCount').textContent = 'enable counter in GoatCounter';
+        });
+    }
+
+    if (unlocked) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', showBadge);
+      } else {
+        showBadge();
+      }
+    }
+  })();
+</script>
 </body>
 </html>
