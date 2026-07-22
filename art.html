@@ -93,12 +93,23 @@
     document.addEventListener('keydown', function (e) {
       if (!e.key || e.key.length !== 1) return;
       typed = (typed + e.key).slice(-3).toLowerCase();
-      if (typed === 'eye' && !unlocked) {
-        unlocked = true;
-        sessionStorage.setItem(KEY, '1');
-        showBadge();
+      if (typed === 'eye') {
+        if (document.getElementById('apnEyeBadge')) {
+          hideBadge();
+        } else {
+          unlocked = true;
+          sessionStorage.setItem(KEY, '1');
+          showBadge();
+        }
       }
     });
+
+    function hideBadge() {
+      var el = document.getElementById('apnEyeBadge');
+      if (el) el.remove();
+      unlocked = false;
+      sessionStorage.removeItem(KEY);
+    }
 
     function showBadge() {
       if (document.getElementById('apnEyeBadge')) return;
