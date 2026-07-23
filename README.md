@@ -1,6 +1,6 @@
 # Anannya P. Neog — Portfolio
 
-🔗 **Live site:** [anannyapriya.github.io/portfolio](https://anannyapriya.github.io/portfolio/)
+🔗 **Live site:** [anannyapriya.github.io](https://anannyapriya.github.io/)
 
 A dual-themed personal portfolio — a bright, sky-driven "light" side and a
 starry "void" side — built from scratch with plain HTML, CSS, and
